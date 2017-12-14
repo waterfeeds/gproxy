@@ -1,1 +1,2 @@
+# Gproxy
 基于netty和zookeeper实现游戏服务器网关代理的功能
