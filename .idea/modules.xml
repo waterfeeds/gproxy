@@ -3,11 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Gproxy.iml" filepath="$PROJECT_DIR$/Gproxy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/gproxy-common.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/gproxy-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/gproxy-proxy.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/gproxy-proxy.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-register/gproxy-register.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-register/gproxy-register.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-server/gproxy-server.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-server/gproxy-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/gproxy-test.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/gproxy-test.iml" />
     </modules>
   </component>
 </project>

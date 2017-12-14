@@ -6,11 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Gproxy" />
+        <module name="gproxy-common" />
+        <module name="gproxy-proxy" />
+        <module name="gproxy-register" />
+        <module name="gproxy-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="Gproxy" target="1.5" />
+      <module name="gproxy-common" target="1.5" />
+      <module name="gproxy-proxy" target="1.5" />
+      <module name="gproxy-register" target="1.5" />
+      <module name="gproxy-server" target="1.5" />
+      <module name="gproxy-test" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
