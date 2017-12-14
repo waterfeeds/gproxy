@@ -2,41 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca662821-1401-42ad-8336-3ad5c1d69255" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__com_alibaba_dubbo_2_5_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__com_google_guava_guava_16_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__commons_logging_commons_logging_1_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_apache_curator_curator_client_2_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_apache_curator_curator_framework_2_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_apache_curator_curator_recipes_2_7_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_javassist_javassist_3_15_0_GA.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_springframework_spring_2_5_6_SEC03.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/message/Const.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/message/URI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/zookeeper/BaseZookeeperService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/zookeeper/RemoteAddress.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/zookeeper/ZookeeperService.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/gproxy-common.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/gproxy-proxy.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/src/main/java/com/waterfeeds/gproxy/banlance/Test.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-register/gproxy-register.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-register/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-server/gproxy-server.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-server/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/gproxy-test.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/src/main/java/Test.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/misc.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/modules.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/test/java/Test.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/Gproxy.iml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/Gproxy.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/pom.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_slf4j_slf4j_api_1_6_1.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/src/main/java/com/waterfeeds/gproxy/annotation/GproxyService.java" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/annotation/GproxyService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/src/main/java/com/waterfeeds/gproxy/cache/Cache.java" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/cache/Cache.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-common/src/main/java/com/waterfeeds/gproxy/cache/CacheFactory.java" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/cache/CacheFactory.java" />
     </list>
     <ignored path="$PROJECT_DIR$/../../../projects/Gproxy/out/" />
     <ignored path="$PROJECT_DIR$/../../../projects/Gproxy/target/" />
@@ -53,7 +21,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Test.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../../../projects/Gproxy/src/test/java/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="2" column="32" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -97,6 +76,7 @@
         <option value="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/zookeeper/ZookeeperService.java" />
         <option value="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/zookeeper/BaseZookeeperService.java" />
         <option value="$PROJECT_DIR$/../../../projects/Gproxy/src/main/java/com/waterfeeds/gproxy/common/zookeeper/RemoteAddress.java" />
+        <option value="$PROJECT_DIR$/../../../projects/Gproxy/src/test/java/Test.java" />
       </list>
     </option>
   </component>
@@ -206,6 +186,12 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="gproxy" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -336,15 +322,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513234850011</updated>
-      <workItem from="1513234855319" duration="14003000" />
+      <workItem from="1513234855319" duration="14172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14003000" />
+    <option name="totallyTimeSpent" value="14172000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -360,7 +347,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20572917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20572917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -605,6 +592,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../projects/Gproxy/Gproxy.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../projects/Gproxy/src/test/java/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="32" lean-forward="false" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
           <folding />
         </state>
       </provider>
