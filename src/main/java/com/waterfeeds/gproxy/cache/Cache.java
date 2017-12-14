@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.common.cache;
+package com.waterfeeds.gproxy.cache;
 
 public interface Cache<K, V> {
     V getCache(K k);

@@ -1,6 +1,8 @@
-package com.waterfeeds.gproxy.common.zookeeper;
+package com.waterfeeds.gproxy.zookeeper;
 
 import com.waterfeeds.gproxy.common.message.URI;
+import com.waterfeeds.gproxy.common.zookeeper.BaseZookeeperService;
+import com.waterfeeds.gproxy.common.zookeeper.RemoteAddress;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
@@ -65,18 +67,18 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         return false;
     }
 
-    public RemoteAddress[] getChildNodes(String path) {
+    public com.waterfeeds.gproxy.common.zookeeper.RemoteAddress[] getChildNodes(String path) {
         path = path.startsWith(DEV_S) ? path : DEV_S + path;
         try {
             List<String> forPath = curatorFramework.getChildren().forPath(path);
-            RemoteAddress[] addresses = new RemoteAddress[forPath.size()];
+            com.waterfeeds.gproxy.common.zookeeper.RemoteAddress[] addresses = new com.waterfeeds.gproxy.common.zookeeper.RemoteAddress[forPath.size()];
             StringBuilder sb = new StringBuilder();
             int num = 0;
             for (String paths: forPath) {
                 String final_path = sb.append(path).append(DEV_S).append(paths).toString();
                 URI data = this.getData(final_path);
                 if (data != null) {
-                    RemoteAddress address = new RemoteAddress(paths, data);
+                    com.waterfeeds.gproxy.common.zookeeper.RemoteAddress address = new RemoteAddress(paths, data);
                     addresses[num] = address;
                     num ++;
                 }

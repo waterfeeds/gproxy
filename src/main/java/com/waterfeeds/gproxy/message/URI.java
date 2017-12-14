@@ -1,4 +1,6 @@
-package com.waterfeeds.gproxy.common.message;
+package com.waterfeeds.gproxy.message;
+
+import com.waterfeeds.gproxy.common.message.Const;
 
 import java.io.Serializable;
 import java.util.concurrent.CountDownLatch;

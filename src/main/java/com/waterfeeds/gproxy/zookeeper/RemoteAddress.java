@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.common.zookeeper;
+package com.waterfeeds.gproxy.zookeeper;
 
 import com.waterfeeds.gproxy.common.message.URI;
 

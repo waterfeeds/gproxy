@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.common.message;
+package com.waterfeeds.gproxy.message;
 
 public class Const {
     public static String SUCCESS_CODE="R200";
