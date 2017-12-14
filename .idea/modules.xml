@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/gproxy-proxy.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-proxy/gproxy-proxy.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-register/gproxy-register.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-register/gproxy-register.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-server/gproxy-server.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-server/gproxy-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/gproxy-test.iml" filepath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/gproxy-test.iml" />
     </modules>
   </component>
 </project>

@@ -13,6 +13,7 @@
         <module>register</module>
         <module>server</module>
         <module>common</module>
+        <module>gproxy-test</module>
     </modules>
     <name>game proxy</name>
 

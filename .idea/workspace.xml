@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ca662821-1401-42ad-8336-3ad5c1d69255" name="Default" comment="" />
+    <list default="true" id="ca662821-1401-42ad-8336-3ad5c1d69255" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/gproxy-test.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/pom.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/src/main/java/Test.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/modules.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../projects/Gproxy/pom.xml" afterPath="$PROJECT_DIR$/../../../projects/Gproxy/pom.xml" />
+    </list>
     <ignored path="$PROJECT_DIR$/../../../projects/Gproxy/out/" />
     <ignored path="$PROJECT_DIR$/../../../projects/Gproxy/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,7 +20,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Test.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/src/main/java/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -21,6 +40,10 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../projects/Gproxy" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -39,6 +62,7 @@
         <option value="$PROJECT_DIR$/../../../projects/Gproxy/common/src/main/java/com/waterfeeds/gproxy/cache/Cache.java" />
         <option value="$PROJECT_DIR$/../../../projects/Gproxy/common/src/main/java/com/waterfeeds/gproxy/cache/CacheFactory.java" />
         <option value="$PROJECT_DIR$/../../../projects/Gproxy/proxy/src/main/java/com/waterfeeds/gproxy/banlance/Test.java" />
+        <option value="$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/src/main/java/Test.java" />
       </list>
     </option>
   </component>
@@ -69,9 +93,9 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="721" />
-    <option name="y" value="16" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="570" />
+    <option name="y" value="246" />
     <option name="width" value="1400" />
     <option name="height" value="973" />
   </component>
@@ -85,6 +109,9 @@
         </expanded-state>
       </profile-state>
     </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -110,41 +137,6 @@
             <path>
               <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
               <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy-common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="gproxy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
@@ -195,6 +187,24 @@
               <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
               <item name="gproxy-server" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
+              <item name="gproxy-test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
+              <item name="gproxy-test" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Gproxy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Gproxy" type="462c0819:PsiDirectoryNode" />
+              <item name="gproxy-test" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -204,13 +214,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path" value="$PROJECT_DIR$/../../../Program Files/node/node" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Program Files/git/Git/bin/git.exe" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -317,15 +328,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513234850011</updated>
-      <workItem from="1513234855319" duration="4343000" />
+      <workItem from="1513234855319" duration="5668000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4343000" />
+    <option name="totallyTimeSpent" value="5668000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="721" y="16" width="1400" height="973" extended-state="0" />
+    <frame x="570" y="246" width="1400" height="973" extended-state="1" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -335,11 +347,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28540462" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28540462" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -468,6 +480,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../projects/Gproxy/gproxy-test/src/main/java/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
