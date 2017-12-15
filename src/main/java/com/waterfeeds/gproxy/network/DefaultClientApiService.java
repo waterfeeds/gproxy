@@ -1,6 +1,5 @@
 package com.waterfeeds.gproxy.network;
 
-import com.waterfeeds.gproxy.message.Const;
 import com.waterfeeds.gproxy.message.URI;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -15,7 +14,7 @@ import io.netty.handler.timeout.IdleStateHandler;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DefaultNettyClientApiService extends NettyClientApiService {
+public class DefaultClientApiService extends ClientApiService {
     private ScheduledExecutorService executorService;
     private DefaultEventLoopGroup defaultEventLoopGroup;
     private NioEventLoopGroup nioEventLoopGroup;
@@ -23,15 +22,15 @@ public class DefaultNettyClientApiService extends NettyClientApiService {
     private static int threads;
 
     static class staticInitBean {
-        public static DefaultNettyClientApiService clientApiService = new DefaultNettyClientApiService();
+        public static DefaultClientApiService clientApiService = new DefaultClientApiService();
     }
 
-    public static DefaultNettyClientApiService newInstance(int threads) {
-        DefaultNettyClientApiService.threads = threads;
+    public static DefaultClientApiService newInstance(int threads) {
+        DefaultClientApiService.threads = threads;
         return staticInitBean.clientApiService;
     }
 
-    private DefaultNettyClientApiService() {
+    private DefaultClientApiService() {
         resource();
         start();
         executorService.scheduleWithFixedDelay(new Runnable() {

@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class NettyClientApiService {
-    protected static final Logger log = LoggerFactory.getLogger(NettyClientApiService.class.getSimpleName());
+public abstract class ClientApiService {
+    protected static final Logger log = LoggerFactory.getLogger(ClientApiService.class.getSimpleName());
 
     protected static final ConcurrentHashMap<String, ChannelManager> channels = new ConcurrentHashMap<String, ChannelManager>();
 

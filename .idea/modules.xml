@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Gproxy.iml" filepath="$PROJECT_DIR$/Gproxy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Gproxy.iml" filepath="$PROJECT_DIR$/.idea/Gproxy.iml" />
     </modules>
   </component>
 </project>
