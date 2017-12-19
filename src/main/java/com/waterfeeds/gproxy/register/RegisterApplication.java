@@ -7,8 +7,9 @@ import com.waterfeeds.gproxy.network.DefaultServerApiService;
 
 public class RegisterApplication {
     public static void main(String[] args) {
-        DefaultServerApiService serverProxy = new DefaultServerApiService();
+        /*DefaultServerApiService serverProxy = new DefaultServerApiService();
         serverProxy.setPort(8081);
-        serverProxy.start();
+        serverProxy.start();*/
+
     }
 }
