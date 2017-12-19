@@ -1,6 +1,6 @@
 package com.waterfeeds.gproxy.cache;
 
-import com.waterfeeds.gproxy.common.cache.Cache;
+import com.waterfeeds.gproxy.cache.Cache;
 
 import java.util.concurrent.ConcurrentHashMap;
 

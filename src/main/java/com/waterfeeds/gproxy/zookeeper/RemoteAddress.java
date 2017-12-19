@@ -1,6 +1,6 @@
 package com.waterfeeds.gproxy.zookeeper;
 
-import com.waterfeeds.gproxy.common.message.URI;
+import com.waterfeeds.gproxy.message.URI;
 
 import java.io.Serializable;
 

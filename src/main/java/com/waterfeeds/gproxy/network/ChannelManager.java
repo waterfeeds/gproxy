@@ -33,7 +33,7 @@ public class ChannelManager {
     }
 
     public Channel getChannel() {
-        return channel;
+        return channelFuture.channel();
     }
 
     public void setChannel(Channel channel) {

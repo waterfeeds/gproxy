@@ -3,12 +3,15 @@ package com.waterfeeds.gproxy.network;
 import com.waterfeeds.gproxy.message.URI;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.DefaultEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
 import java.util.concurrent.*;
@@ -32,7 +35,7 @@ public class DefaultClientApiService extends ClientApiService {
 
     private DefaultClientApiService() {
         resource();
-        start();
+        //start();
         executorService.scheduleWithFixedDelay(new Runnable() {
             public void run() {
                 cleanUpClients();
@@ -40,11 +43,18 @@ public class DefaultClientApiService extends ClientApiService {
         }, 10, 10, TimeUnit.SECONDS);
     }
 
+    @Override
     public ChannelManager doConnect(URI uri) {
+        String host = uri.getHost();
+        int port = uri.getPort();
         try {
-            ChannelManager channelManager = null;
-
+            start();
+            ChannelFuture future = bootstrap.connect(host, port).sync();
+            if (future.isSuccess()) {
+                return new ChannelManager(true, future, new URI(host, port));
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(this.getClass().getName(), e);
         }
         return null;
@@ -82,7 +92,8 @@ public class DefaultClientApiService extends ClientApiService {
     }
 
     public Bootstrap start() {
-        bootstrap.group(defaultEventLoopGroup)
+        resource();
+        bootstrap.group(nioEventLoopGroup)
                 .channel(NioSocketChannel.class)
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.SO_KEEPALIVE, false)
@@ -92,9 +103,8 @@ public class DefaultClientApiService extends ClientApiService {
                 .option(ChannelOption.SO_RCVBUF, 10 * 1024 * 1024)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(defaultEventLoopGroup);
-                        //ch.pipeline().addLast(new ClientEncode());
-                        //ch.pipeline().addLast(new ClinetDecode());
+                        ch.pipeline().addLast(new StringEncoder());
+                        ch.pipeline().addLast(new StringDecoder());
                         ch.pipeline().addLast(new IdleStateHandler(20, 0, 0));
                         //ch.pipeline().addLast(new OutChannelInvocationHandler());
 

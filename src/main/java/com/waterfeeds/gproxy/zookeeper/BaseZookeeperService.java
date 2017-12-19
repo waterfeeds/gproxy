@@ -1,7 +1,7 @@
 package com.waterfeeds.gproxy.zookeeper;
 
-import com.waterfeeds.gproxy.common.message.URI;
-import com.waterfeeds.gproxy.common.zookeeper.RemoteAddress;
+import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.zookeeper.RemoteAddress;
 import org.apache.zookeeper.CreateMode;
 
 public interface BaseZookeeperService {

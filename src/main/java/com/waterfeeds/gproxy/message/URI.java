@@ -1,6 +1,6 @@
 package com.waterfeeds.gproxy.message;
 
-import com.waterfeeds.gproxy.common.message.Const;
+import com.waterfeeds.gproxy.message.Const;
 
 import java.io.Serializable;
 import java.util.concurrent.CountDownLatch;
@@ -53,6 +53,11 @@ public class URI implements Serializable {
 
     public URI() {
 
+    }
+
+    public URI(String host, int port) {
+        this.host = host;
+        this.port = port;
     }
 
     public URI(String serialMethod, String host, int port, String weight) {
