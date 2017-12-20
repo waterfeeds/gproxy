@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a724391-b284-4d3e-9b79-25f3bc6471e0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Gproxy.iml" afterPath="$PROJECT_DIR$/.idea/Gproxy.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java" afterPath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyCoder.java" afterPath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyCoder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyHeader.java" afterPath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyHeader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/ByteUtil.java" afterPath="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/ByteUtil.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -44,24 +41,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GproxyBody.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="GproxyCoder.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyCoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-110">
-              <caret line="10" column="58" lean-forward="true" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="53" column="51" lean-forward="true" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,8 +64,8 @@
       <file leaf-file-name="ByteUtil.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/ByteUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="15" column="46" lean-forward="true" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+            <state relative-caret-position="537">
+              <caret line="111" column="24" lean-forward="false" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -143,11 +128,12 @@
         <option value="$PROJECT_DIR$/src/log4j.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyProtocol.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/base/AbstractCoder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/Bit.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/ByteUtil.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyHeader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/ByteUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/exception/ProtocolException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyCoder.java" />
       </list>
     </option>
@@ -523,12 +509,12 @@
       <workItem from="1513582851366" duration="1598000" />
       <workItem from="1513645619687" duration="33920000" />
       <workItem from="1513689714205" duration="228000" />
-      <workItem from="1513731774278" duration="19545000" />
+      <workItem from="1513731774278" duration="22391000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67078000" />
+    <option name="totallyTimeSpent" value="69924000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -573,18 +559,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyDecoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/proxy/router.java" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -909,18 +888,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyHeader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar!/org/apache/commons/lang3/ArrayUtils.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="202" column="69" lean-forward="false" selection-start-line="202" selection-start-column="50" selection-end-line="202" selection-end-column="69" />
+        <state relative-caret-position="333">
+          <caret line="1630" column="73" lean-forward="true" selection-start-line="1630" selection-start-column="73" selection-end-line="1630" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/util/ByteUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="15" column="46" lean-forward="true" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+        <state relative-caret-position="537">
+          <caret line="111" column="24" lean-forward="false" selection-start-line="111" selection-start-column="24" selection-end-line="111" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -933,29 +928,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyBody.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/exception/ProtocolException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="33" lean-forward="true" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyHeader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="198">
+          <caret line="9" column="11" lean-forward="false" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/waterfeeds/gproxy/protocol/GproxyCoder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-110">
-          <caret line="10" column="58" lean-forward="true" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="374">
+          <caret line="53" column="51" lean-forward="true" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
+          <folding />
         </state>
       </provider>
     </entry>

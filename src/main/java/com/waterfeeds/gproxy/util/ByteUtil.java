@@ -1,5 +1,7 @@
 package com.waterfeeds.gproxy.util;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.BitSet;
 import java.util.List;
 
@@ -93,6 +95,21 @@ public class ByteUtil {
             }
         }
         return bytes;
+    }
+
+    public static byte[] mergeArrays(byte[]... bytes) {
+        int len = 0;
+        for (byte[] bs : bytes) {
+            len += bs.length;
+        }
+        byte[] newBytes = new byte[len];
+        int index = 0;
+        for (byte[] bs : bytes) {
+            for (byte b : bs) {
+                newBytes[index++] = b;
+            }
+        }
+        return newBytes;
     }
 
     public static void print(byte[] bytes) {

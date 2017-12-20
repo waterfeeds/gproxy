@@ -6,6 +6,7 @@ public class GproxyBody {
 
     public GproxyBody(String content) {
         this.safeSign = "";
+        this.content = content;
     }
 
     public GproxyBody(String safeSign, String content) {
