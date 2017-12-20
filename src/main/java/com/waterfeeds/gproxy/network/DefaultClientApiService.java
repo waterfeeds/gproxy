@@ -14,7 +14,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.internal.logging.InternalLogLevel;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -107,6 +109,7 @@ public class DefaultClientApiService extends ClientApiService {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         //ch.pipeline().addLast(new StringEncoder());
                         //ch.pipeline().addLast(new StringDecoder());
+                        ch.pipeline().addLast(new LoggingHandler(String.valueOf(InternalLogLevel.INFO)));
                         ch.pipeline().addLast(new TcpEncoder());
                         ch.pipeline().addLast(new TcpDecoder());
                         ch.pipeline().addLast(new IdleStateHandler(20, 0, 0));

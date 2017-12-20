@@ -1,6 +1,7 @@
 package com.waterfeeds.gproxy.network;
 
 import com.alibaba.dubbo.rpc.Invocation;
+import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.protocol.tcp.TcpDecoder;
 import com.waterfeeds.gproxy.protocol.tcp.TcpEncoder;
 import io.netty.bootstrap.ServerBootstrap;
@@ -12,7 +13,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.internal.logging.InternalLogLevel;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.ThreadFactory;
@@ -86,6 +89,7 @@ public class DefaultServerApiService extends ServerApiService implements Initial
                         //ch.pipeline().addLast(new StringEncoder());
                         //ch.pipeline().addLast(new StringDecoder());
                         // 自定义协议
+                        ch.pipeline().addLast(new LoggingHandler(String.valueOf(InternalLogLevel.INFO)));
                         ch.pipeline().addLast(new TcpEncoder());
                         ch.pipeline().addLast(new TcpDecoder());
                         ch.pipeline().addLast(new IdleStateHandler(30, 30, 30));
@@ -98,8 +102,8 @@ public class DefaultServerApiService extends ServerApiService implements Initial
 
                             @Override
                             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                super.channelRead(ctx, msg);
-                                System.out.println("received: " + msg.toString());
+                                GproxyProtocol protocol = (GproxyProtocol) msg;
+                                System.out.println("received content: " + protocol.getBody().getContent());
                             }
                         });
                     }

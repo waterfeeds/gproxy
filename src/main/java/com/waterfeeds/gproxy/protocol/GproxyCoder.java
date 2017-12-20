@@ -5,7 +5,7 @@ import com.waterfeeds.gproxy.protocol.exception.ProtocolException;
 import com.waterfeeds.gproxy.util.ByteUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class GproxyCoder implements AbstractGproxyCoder{
+public class GproxyCoder implements AbstractGproxyCoder {
     @Override
     public byte[] encode(Object object) {
         GproxyProtocol protocol = (GproxyProtocol) object;
@@ -45,7 +45,7 @@ public class GproxyCoder implements AbstractGproxyCoder{
         return new GproxyProtocol(header, body);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         GproxyProtocol protocol = new GproxyProtocol(new GproxyHeader(1, 1, 5), new GproxyBody("Tdy6gRygBSVJKR1f", "hello"));
         GproxyCoder coder = new GproxyCoder();
         GproxyProtocol receiveProtocol = (GproxyProtocol) coder.decode(coder.encode(protocol));
@@ -56,5 +56,5 @@ public class GproxyCoder implements AbstractGproxyCoder{
         System.out.println(header.getContentLen());
         System.out.println(body.getSafeSign());
         System.out.println(body.getContent());
-    }
+    }*/
 }

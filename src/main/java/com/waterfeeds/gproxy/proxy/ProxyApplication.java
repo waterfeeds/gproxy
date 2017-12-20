@@ -9,7 +9,7 @@ import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
 
 public class ProxyApplication {
     public static void main(String[] args) {
-        ZookeeperService zookeeperService = new ZookeeperService();
+        /*ZookeeperService zookeeperService = new ZookeeperService();
         zookeeperService.setPath("gproxy");
         zookeeperService.setZkAddress("127.0.0.1:2181");
         zookeeperService.setCertificate(new Certificate());
@@ -21,7 +21,7 @@ public class ProxyApplication {
         if (zookeeperService.exists("/server-01")) {
             String address = zookeeperService.getData("/server-01");
             System.out.println("server address:" + address);
-        }
+        }*/
         DefaultServerApiService serverProxy = new DefaultServerApiService();
         serverProxy.setPort(8080);
         serverProxy.start();

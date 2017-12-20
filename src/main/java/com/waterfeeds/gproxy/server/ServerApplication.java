@@ -4,6 +4,9 @@ import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.network.DefaultClientApiService;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
+import com.waterfeeds.gproxy.protocol.GproxyBody;
+import com.waterfeeds.gproxy.protocol.GproxyHeader;
+import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
 import org.apache.curator.RetryPolicy;
@@ -18,7 +21,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class ServerApplication {
     public static void main(String[] args) throws Exception {
-        ZookeeperService zookeeperService = new ZookeeperService();
+        /*ZookeeperService zookeeperService = new ZookeeperService();
         zookeeperService.setPath("gproxy");
         zookeeperService.setZkAddress("127.0.0.1:2181");
         zookeeperService.setCertificate(new Certificate());
@@ -31,6 +34,16 @@ public class ServerApplication {
             e.printStackTrace();
         }
         zookeeperService.registerNode("/server-01", uri, CreateMode.PERSISTENT, bytes, false);
-        System.out.println("register " + zookeeperService.exists("/server-01"));
+        System.out.println("register " + zookeeperService.exists("/server-01"));*/
+
+        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
+        clientApiService.start();
+        URI uri = new URI("127.0.0.1", 8080);
+        ChannelManager manager = clientApiService.doConnect(uri);
+        GproxyProtocol protocol = new GproxyProtocol(new GproxyHeader(1, 0, 5), new GproxyBody("hello"));;
+        if (manager.isAvailable()) {
+            System.out.println("send content");
+            manager.getChannel().writeAndFlush(protocol);
+        }
     }
 }

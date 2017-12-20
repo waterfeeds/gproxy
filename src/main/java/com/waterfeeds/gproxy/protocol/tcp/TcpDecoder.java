@@ -27,6 +27,7 @@ public class TcpDecoder extends ByteToMessageDecoder {
                 byteBuf.markReaderIndex();
                 int readByte = ByteUtil.byte2Int(byteBuf.readByte());
                 // 读到了协议的开始标志，跳出while循环
+
                 if (readByte == Const.HEAD_DATA) {
                     break;
                 }
@@ -38,6 +39,7 @@ public class TcpDecoder extends ByteToMessageDecoder {
                 }
             }
 
+            // 长度两个字节，但是直接读short可能问题
             int length = byteBuf.readShort();
             if (byteBuf.readableBytes() < length) {
                 byteBuf.readerIndex(beginReader);
