@@ -45,16 +45,4 @@ public class GproxyCoder implements AbstractGproxyCoder {
         return new GproxyProtocol(header, body);
     }
 
-    /*public static void main(String[] args) {
-        GproxyProtocol protocol = new GproxyProtocol(new GproxyHeader(1, 1, 5), new GproxyBody("Tdy6gRygBSVJKR1f", "hello"));
-        GproxyCoder coder = new GproxyCoder();
-        GproxyProtocol receiveProtocol = (GproxyProtocol) coder.decode(coder.encode(protocol));
-        GproxyHeader header = receiveProtocol.getHeader();
-        GproxyBody body = receiveProtocol.getBody();
-        System.out.println(header.getCmd());
-        System.out.println(header.getSafe());
-        System.out.println(header.getContentLen());
-        System.out.println(body.getSafeSign());
-        System.out.println(body.getContent());
-    }*/
 }
