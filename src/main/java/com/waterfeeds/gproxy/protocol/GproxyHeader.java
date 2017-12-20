@@ -2,15 +2,15 @@ package com.waterfeeds.gproxy.protocol;
 
 public class GproxyHeader {
     private int cmd;
-    private boolean safe;
+    private int safe;
     private int contentLen;
 
     public GproxyHeader(int cmd, int contentLen) {
         this.cmd = cmd;
-        this.safe = false;
+        this.safe = 0;
         this.contentLen = contentLen;
     }
-    public GproxyHeader(int cmd, boolean safe, int contentLen) {
+    public GproxyHeader(int cmd, int safe, int contentLen) {
         this.cmd = cmd;
         this.safe = safe;
         this.contentLen = contentLen;
@@ -24,11 +24,11 @@ public class GproxyHeader {
         this.cmd = cmd;
     }
 
-    public boolean isSafe() {
+    public int getSafe() {
         return safe;
     }
 
-    public void setSafe(boolean safe) {
+    public void setSafe(int safe) {
         this.safe = safe;
     }
 

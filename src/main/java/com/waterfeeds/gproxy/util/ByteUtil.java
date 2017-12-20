@@ -1,6 +1,7 @@
 package com.waterfeeds.gproxy.util;
 
 import java.util.BitSet;
+import java.util.List;
 
 public class ByteUtil {
     public static byte[] int2Byte(int num, int len) {
@@ -22,30 +23,65 @@ public class ByteUtil {
         return (int) value;
     }
 
-    public static BitSet int2Bit(int num, int len) {
-        BitSet bits = new BitSet(len);
+    public static Bit int2Bit(int num, int len) {
+        BitSet bits = new BitSet();
         for (int i = 0; i < len; i++) {
-            int offset = (len - 1 - i);
+            int offset = len - 1 - i;
             bits.set(i, ((num >>> offset) & 0x1) == 1);
         }
-        return bits;
+        return new Bit(bits, len);
     }
 
-    public static BitSet mergeBits(BitSet ...bits) {
-        int len = bits.length;
-        BitSet bitSets = new BitSet(len);
+    public static Bit bool2Bit(boolean bool) {
+        BitSet bits = new BitSet();
+        bits.set(0, bool);
+        return new Bit(bits, 1);
+    }
+
+    public static Bit byte2Bit(byte b) {
+        int len = 8;
+        BitSet bits = new BitSet();
+        for (int i = 0; i < len; i++) {
+            int offset = len - 1 - i;
+            bits.set(i, ((b >>> offset) & 0x1) == 1);
+        }
+        return new Bit(bits, len);
+    }
+
+    public static Bit byte2Bit(byte b, int len) {
+        BitSet bits = new BitSet();
+        for (int i = 0; i < len; i++) {
+            int offset = len - 1 - i;
+            bits.set(i, ((b >>> offset) & 0x1) == 1);
+        }
+        return new Bit(bits, len);
+    }
+
+    public static Bit byte2Bit(byte b, int index, int len) {
+        BitSet bits = new BitSet();
+        for (int i = index; i < len; i++) {
+            int offset = len - 1 - i;
+            bits.set(i, ((b >>> offset) & 0x1) == 1);
+        }
+        return new Bit(bits, len);
+    }
+
+    public static Bit mergeBits(List<Bit> bits) {
+        int len = bits.size();
         int index = 0;
-        for (BitSet bit: bits) {
-            int bLen = bit.length();
+        BitSet bitSet = new BitSet();
+        for (Bit bit : bits) {
+            int bLen = bit.getLen();
             for (int i = 0; i < bLen; i++) {
-                bitSets.set(index ++, bit.get(i));
+                bitSet.set(index++, bit.getBit().get(i));
             }
         }
-        return bitSets;
+        return new Bit(bitSet, index);
     }
 
-    public static byte[] bit2Byte(BitSet bits) {
-        int len = bits.length();
+    public static byte[] bit2Byte(Bit bit) {
+        BitSet bits = bit.getBit();
+        int len = bit.getLen();
         if (len % 8 != 0)
             return new byte[0];
         int bytesLen = len / 8;
@@ -66,8 +102,12 @@ public class ByteUtil {
     }
 
     public static void main(String[] args) {
-        byte[] bytes = int2Byte(10000, 4);
+       /* byte[] bytes = int2Byte(10000, 4);
         print(bytes);
-        System.out.println(byte2Int(bytes));
+        System.out.println(byte2Int(bytes));*/
+        Bit bits = int2Bit(15, 4);
+        System.out.println(bits.toString());
+        byte[] bytes = bit2Byte(bits);
+        System.out.println(bytes);
     }
 }
