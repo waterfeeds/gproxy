@@ -25,6 +25,10 @@ public class ByteUtil {
         return (int) value;
     }
 
+    public static int byte2Int(byte b) {
+        return (int) (b & 0xFF);
+    }
+
     public static Bit int2Bit(int num, int len) {
         BitSet bits = new BitSet();
         for (int i = 0; i < len; i++) {

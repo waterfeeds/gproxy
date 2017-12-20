@@ -1,6 +1,8 @@
 package com.waterfeeds.gproxy.network;
 
 import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.protocol.tcp.TcpDecoder;
+import com.waterfeeds.gproxy.protocol.tcp.TcpEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -103,8 +105,10 @@ public class DefaultClientApiService extends ClientApiService {
                 .option(ChannelOption.SO_RCVBUF, 10 * 1024 * 1024)
                 .handler(new ChannelInitializer<SocketChannel>() {
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new StringEncoder());
-                        ch.pipeline().addLast(new StringDecoder());
+                        //ch.pipeline().addLast(new StringEncoder());
+                        //ch.pipeline().addLast(new StringDecoder());
+                        ch.pipeline().addLast(new TcpEncoder());
+                        ch.pipeline().addLast(new TcpDecoder());
                         ch.pipeline().addLast(new IdleStateHandler(20, 0, 0));
                         //ch.pipeline().addLast(new OutChannelInvocationHandler());
 

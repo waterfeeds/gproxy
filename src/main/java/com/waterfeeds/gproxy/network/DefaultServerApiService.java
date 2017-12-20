@@ -1,6 +1,8 @@
 package com.waterfeeds.gproxy.network;
 
 import com.alibaba.dubbo.rpc.Invocation;
+import com.waterfeeds.gproxy.protocol.tcp.TcpDecoder;
+import com.waterfeeds.gproxy.protocol.tcp.TcpEncoder;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -81,8 +83,11 @@ public class DefaultServerApiService extends ServerApiService implements Initial
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline().addLast(serverLoopGroup);
-                        ch.pipeline().addLast(new StringEncoder());
-                        ch.pipeline().addLast(new StringDecoder());
+                        //ch.pipeline().addLast(new StringEncoder());
+                        //ch.pipeline().addLast(new StringDecoder());
+                        // 自定义协议
+                        ch.pipeline().addLast(new TcpEncoder());
+                        ch.pipeline().addLast(new TcpDecoder());
                         ch.pipeline().addLast(new IdleStateHandler(30, 30, 30));
                         ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                             @Override

@@ -5,4 +5,6 @@ public class Const {
     public static String ERROR_CODE = "R300";
     public static long TIME_OUT = 3000;
     public static int ZOOKEEPER_CONNECTION_TIME_OUT = 5000;
+
+    public static int HEAD_DATA = 0x76;
 }

@@ -11,17 +11,19 @@ public class GproxyCoder implements AbstractGproxyCoder{
         GproxyProtocol protocol = (GproxyProtocol) object;
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
+        byte[] identifier = ByteUtil.int2Byte(protocol.getIdentifier(), 1);
+        byte[] length = ByteUtil.int2Byte(protocol.getLength(), 2);
         byte[] cmd = ByteUtil.int2Byte(header.getCmd(), 1);
         byte[] safe = ByteUtil.int2Byte(header.getSafe(), 1);
         byte[] contentLen = ByteUtil.int2Byte(header.getContentLen(), 2);
         byte[] safeSign = body.getSafeSign().getBytes();
         byte[] content = body.getContent().getBytes();
-        byte[] data = ByteUtil.mergeArrays(cmd, safe, contentLen, safeSign, content);
+        byte[] data = ByteUtil.mergeArrays(identifier, length, cmd, safe, contentLen, safeSign, content);
         return data;
     }
 
     @Override
-    public Object decode(byte[] bytes) {
+    public GproxyProtocol decode(byte[] bytes) {
         int cmd = ByteUtil.byte2Int(ArrayUtils.subarray(bytes, 0, 1));
         int safe = ByteUtil.byte2Int(ArrayUtils.subarray(bytes, 1, 2));
         int contentLen = ByteUtil.byte2Int(ArrayUtils.subarray(bytes, 2, 4));
