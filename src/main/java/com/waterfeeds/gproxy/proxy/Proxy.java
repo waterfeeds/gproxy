@@ -1,5 +1,6 @@
 package com.waterfeeds.gproxy.proxy;
 
+import com.alibaba.dubbo.remoting.Server;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.network.DefaultClientApiService;
@@ -90,6 +91,16 @@ public class Proxy extends AbstractProxy {
 
     public void setRouter(Router router) {
         this.router = router;
+    }
+
+    public ServerChannel getClientServerChannel(String clientId, String serverId) {
+        if (!routerChannelMap.containsKey(clientId)) {
+            router.routeByServer(clientId, serverId, serverChannels, routerChannelMap);
+        }
+        if (routerChannelMap.containsKey(clientId)) {
+            return routerChannelMap.get(clientId);
+        }
+        return null;
     }
 
     public void tryConnectServer(String serverId, URI uri) {

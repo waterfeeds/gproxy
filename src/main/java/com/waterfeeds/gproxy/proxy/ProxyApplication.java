@@ -1,7 +1,10 @@
 package com.waterfeeds.gproxy.proxy;
 
 import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.network.DefaultClientApiService;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
+import com.waterfeeds.gproxy.proxy.handler.ForwardChannelInitializer;
+import com.waterfeeds.gproxy.proxy.handler.ForwardHandler;
 import com.waterfeeds.gproxy.proxy.handler.ProxyChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyHandler;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
@@ -33,9 +36,15 @@ public class ProxyApplication {
             proxy.addServerAddress(serverId, uri);
         }
         ProxyHandler handler = new ProxyHandler(proxy);
-        ProxyChannelInitializer initializer = new ProxyChannelInitializer();
-        initializer.init(handler);
-        serverProxy.setChannelInitializer(initializer);
+        ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer();
+        proxyInitializer.init(handler);
+        serverProxy.setChannelInitializer(proxyInitializer);
+        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
+        ForwardHandler forwardHandler = new ForwardHandler(proxy);
+        ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer();
+        forwardInitializer.init(forwardHandler);
+        clientApiService.setChannelInitializer(forwardInitializer);
+        proxy.setClientApiService(clientApiService);
         serverProxy.start();
     }
 }
