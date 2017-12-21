@@ -9,6 +9,25 @@ public class Context {
     private String connectionId;
     private ConcurrentHashMap<String, ClientSession> clientSessions;
 
+    public Context() {
+
+    }
+
+    public Context(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public Context(String clientId, String userId) {
+        this.clientId = clientId;
+        this.userId = userId;
+    }
+
+    public Context(String clientId, String userId, String groupId) {
+        this.clientId = clientId;
+        this.userId = userId;
+        this.groupId = groupId;
+    }
+
     public String getClientId() {
         return clientId;
     }

@@ -11,7 +11,7 @@ public abstract class AbstractProxy {
     protected ConcurrentHashMap<String, ClientChannel> clientChannels = new ConcurrentHashMap<String, ClientChannel>();
     protected ConcurrentHashMap<String, List<ClientChannel>> userChannels = new ConcurrentHashMap<String, List<ClientChannel>>();
     protected ConcurrentHashMap<String, List<ClientChannel>> groupChannels = new ConcurrentHashMap<String, List<ClientChannel>>();
-    
+
     protected void sendToAll(GproxyProtocol message) {
 
     }
