@@ -3,6 +3,7 @@ package com.waterfeeds.gproxy.proxy;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
 import com.waterfeeds.gproxy.proxy.handler.ProxyChannelInitializer;
+import com.waterfeeds.gproxy.proxy.handler.ProxyHandler;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
 import org.apache.commons.lang3.StringUtils;
@@ -31,8 +32,10 @@ public class ProxyApplication {
         if (!StringUtils.isBlank(address) && uri.parseAddress(address)) {
             proxy.addServerAddress(serverId, uri);
         }
-        serverProxy.setProxy(proxy);
-        serverProxy.setChannelInitializer(new ProxyChannelInitializer());
+        ProxyHandler handler = new ProxyHandler(proxy);
+        ProxyChannelInitializer initializer = new ProxyChannelInitializer();
+        initializer.init(handler);
+        serverProxy.setChannelInitializer(initializer);
         serverProxy.start();
     }
 }
