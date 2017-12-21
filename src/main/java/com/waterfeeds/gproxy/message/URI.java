@@ -66,6 +66,16 @@ public class URI implements Serializable {
         this.weight = weight;
     }
 
+    public boolean parseAddress(String address) {
+        String[] arr = address.split(":");
+        if (arr.length == 2) {
+            this.host = arr[0];
+            this.port = Integer.parseInt(arr[1]);
+            return true;
+        }
+        return false;
+    }
+
     public String getSerialMethod() {
         return serialMethod;
     }
