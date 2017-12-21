@@ -10,6 +10,7 @@ public class GproxyHeader {
         this.safe = 0;
         this.contentLen = contentLen;
     }
+
     public GproxyHeader(int cmd, int safe, int contentLen) {
         this.cmd = cmd;
         this.safe = safe;

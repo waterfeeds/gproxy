@@ -13,6 +13,7 @@ import java.util.List;
 public class TcpDecoder extends ByteToMessageDecoder {
     public final int BASE_LENGTH = 5;
     public final int MAX_LENGTH = 8192;
+
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
         if (byteBuf.readableBytes() > BASE_LENGTH) {

@@ -36,18 +36,23 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
     public String getPath() {
         return path;
     }
+
     public void setPath(String path) {
         this.path = path;
     }
+
     public String getZkAddress() {
         return zkAddress;
     }
+
     public void setZkAddress(String zkAddress) {
         this.zkAddress = zkAddress;
     }
+
     public Certificate getCertificate() {
         return certificate;
     }
+
     public void setCertificate(Certificate certificate) {
         this.certificate = certificate;
     }
@@ -55,6 +60,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
     public int getPort() {
         return port;
     }
+
     public void setPort(int port) {
         this.port = port;
     }
@@ -64,8 +70,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         try {
             if (is) {
                 curatorFramework.create().creatingParentsIfNeeded().withMode(mode).forPath(path, bytes);
-            }
-            else {
+            } else {
                 curatorFramework.create().withMode(mode).forPath(path, bytes);
             }
 
@@ -110,13 +115,13 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             RemoteAddress[] addresses = new RemoteAddress[forPath.size()];
             StringBuilder sb = new StringBuilder();
             int num = 0;
-            for (String paths: forPath) {
+            for (String paths : forPath) {
                 String final_path = sb.append(path).append(DEV_S).append(paths).toString();
                 String data = this.getData(final_path);
                 if (data != null) {
                     //RemoteAddress address = new RemoteAddress(paths, data);
                     //addresses[num] = address;
-                    num ++;
+                    num++;
                 }
                 sb.delete(0, sb.length());
             }
@@ -143,29 +148,29 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         return null;
     }
 
-    public void setPathChildrenListener(String path){
-        path = path.startsWith(DEV_S)?path:DEV_S+path;
+    public void setPathChildrenListener(String path) {
+        path = path.startsWith(DEV_S) ? path : DEV_S + path;
         @SuppressWarnings("resource")
         PathChildrenCache childrenCache = new PathChildrenCache(this.curatorFramework, path, true);
         PathChildrenCacheListener childrenCacheListener = new PathChildrenCacheListener() {
             @Override
             public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
                 ChildData data = event.getData();
-                if(data !=null){
+                if (data != null) {
                     URI uri = null;
                     String path = data.getPath();
                     switch (event.getType()) {
                         case CHILD_ADDED:
                             eventHandler.addNode(path, uri);
-                            logger.info("NODE_ADDED : ("+ path +")  数据:"+ uri.toString());
+                            logger.info("NODE_ADDED : (" + path + ")  数据:" + uri.toString());
                             break;
                         case CHILD_REMOVED:
                             eventHandler.removeNode(path);
-                            logger.info("NODE_REMOVED : "+ path);
+                            logger.info("NODE_REMOVED : " + path);
                             break;
                         case CHILD_UPDATED:
                             eventHandler.updateNode(path, uri);
-                            logger.info("NODE_UPDATED : ("+ path +")  数据:"+ uri.toString());
+                            logger.info("NODE_UPDATED : (" + path + ")  数据:" + uri.toString());
                             break;
                         default:
                             break;
@@ -179,11 +184,12 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             childrenCache.start(PathChildrenCache.StartMode.POST_INITIALIZED_EVENT);
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            logger.error("",e);
+            logger.error("", e);
         }
     }
-    public  void setTreeListener(String path) throws Exception{
-        path = path.startsWith(DEV_S)?path:DEV_S+path;
+
+    public void setTreeListener(String path) throws Exception {
+        path = path.startsWith(DEV_S) ? path : DEV_S + path;
         //设置节点的cache
         @SuppressWarnings("resource")
         TreeCache treeCache = new TreeCache(this.curatorFramework, path);
@@ -192,28 +198,28 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             @Override
             public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {
                 ChildData data = event.getData();
-                if(data !=null){
+                if (data != null) {
                     URI uri = null;
 
                     String path = data.getPath();
                     switch (event.getType()) {
                         case NODE_ADDED:
-                            eventHandler.addNode(path,uri);
-                            logger.info("NODE_ADDED : ("+ path +")  数据:"+ uri.toString());
+                            eventHandler.addNode(path, uri);
+                            logger.info("NODE_ADDED : (" + path + ")  数据:" + uri.toString());
                             break;
                         case NODE_REMOVED:
                             eventHandler.removeNode(path);
-                            logger.info("NODE_REMOVED : "+ path);
+                            logger.info("NODE_REMOVED : " + path);
                             break;
                         case NODE_UPDATED:
                             eventHandler.updateNode(path, uri);
-                            logger.info("NODE_UPDATED : ("+ path +")  数据:"+ uri.toString());
+                            logger.info("NODE_UPDATED : (" + path + ")  数据:" + uri.toString());
                             break;
                         default:
                             break;
                     }
-                }else{
-                    logger.info( "data is null : "+ event.getType());
+                } else {
+                    logger.info("data is null : " + event.getType());
                 }
             }
         });
@@ -223,7 +229,9 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
 
     public interface NodeEventHandler {
         void addNode(String serviceName, URI uri);
+
         void removeNode(String address);
+
         void updateNode(String serviceName, URI uri);
     }
 
@@ -231,7 +239,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         if (CollectionUtils.isNotEmpty(registerServiceNames)) {
             InetAddress localHost = Inet4Address.getLocalHost();
             String hostAddress = localHost.getHostAddress();
-            for (String serviceName: registerServiceNames) {
+            for (String serviceName : registerServiceNames) {
                 URI uri = new URI(null, hostAddress, this.port, null);
                 registerNode(serviceName, uri, CreateMode.EPHEMERAL_SEQUENTIAL, new byte[100], true);
                 System.out.println("success register server {}: {}");
@@ -241,7 +249,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
 
     public void initServer(ConcurrentSet<String> serviceNames) throws Exception {
         if (CollectionUtils.isNotEmpty(serviceNames)) {
-            for (String serviceName: serviceNames) {
+            for (String serviceName : serviceNames) {
                 RemoteAddress[] addresses = getChildNodes(serviceName);
                 if (addresses != null) {
                     setPathChildrenListener(serviceName);
@@ -306,7 +314,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
 
     public boolean isExists(RemoteAddress[] addresses, String path) {
         boolean flag = false;
-        for (RemoteAddress address: addresses) {
+        for (RemoteAddress address : addresses) {
             if (path.contains(address.getNodeName())) {
                 flag = true;
                 break;

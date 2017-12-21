@@ -12,6 +12,7 @@ public abstract class ServerApiService {
     public static Cache<String, Integer> properties = new CacheFactory<String, Integer>();
     protected static final Logger log = LoggerFactory.getLogger(ServerApiService.class.getSimpleName());
     protected static final GproxyExecutor executor = new GproxyExecutor("gproxy-server");
+
     protected void invoke(Channel channel, Invocation invocation) {
         try {
             executor.execute(getSubmitTask(channel, invocation));

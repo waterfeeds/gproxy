@@ -18,6 +18,7 @@ public class ZookeeperClient implements BaseZookeeperClient {
     public CuratorFramework init(String path, final String connectString, final Certificate certificate) {
         ACLProvider aclProvider = new ACLProvider() {
             private List<ACL> acl;
+
             @Override
             public List<ACL> getDefaultAcl() {
                 if (acl == null) {

@@ -78,8 +78,8 @@ public class DefaultServerApiService extends ServerApiService implements Initial
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.SO_BACKLOG, 1024)
                 .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .option(ChannelOption.SO_SNDBUF, 10*1024*1024)
-                .option(ChannelOption.SO_RCVBUF, 10*1024*1024)
+                .option(ChannelOption.SO_SNDBUF, 10 * 1024 * 1024)
+                .option(ChannelOption.SO_RCVBUF, 10 * 1024 * 1024)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .childHandler(channelInitializer);
