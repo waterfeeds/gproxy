@@ -7,6 +7,6 @@ import io.netty.channel.socket.SocketChannel;
 public class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
-        socketChannel = new BaseChannelInitializer().getSocketChannel();
+        socketChannel = BaseChannelInitializer.baseInit(socketChannel);
     }
 }

@@ -11,14 +11,13 @@ import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.internal.logging.InternalLogLevel;
 
 public class BaseChannelInitializer {
-    private SocketChannel socketChannel;
 
-    public BaseChannelInitializer() {
-        socketChannel.pipeline().addLast(new LoggingHandler(String.valueOf(InternalLogLevel.INFO)));
-        socketChannel.pipeline().addLast(new TcpEncoder());
-        socketChannel.pipeline().addLast(new TcpDecoder());
-        socketChannel.pipeline().addLast(new IdleStateHandler(30, 30, 30));
-        socketChannel.pipeline().addLast(new ChannelInboundHandlerAdapter() {
+    public static SocketChannel baseInit(SocketChannel ch) {
+        ch.pipeline().addLast(new LoggingHandler(String.valueOf(InternalLogLevel.INFO)));
+        ch.pipeline().addLast(new TcpEncoder());
+        ch.pipeline().addLast(new TcpDecoder());
+        ch.pipeline().addLast(new IdleStateHandler(30, 30, 30));
+        ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
             @Override
             public void channelActive(ChannelHandlerContext ctx) throws Exception {
                 super.channelActive(ctx);
@@ -31,13 +30,7 @@ public class BaseChannelInitializer {
                 System.out.println("received content: " + protocol.getBody().getContent());
             }
         });
+        return ch;
     }
 
-    public SocketChannel getSocketChannel() {
-        return socketChannel;
-    }
-
-    public void setSocketChannel(SocketChannel socketChannel) {
-        this.socketChannel = socketChannel;
-    }
 }

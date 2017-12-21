@@ -65,27 +65,35 @@ public class URI implements Serializable {
         this.port = port;
         this.weight = weight;
     }
+
     public String getSerialMethod() {
         return serialMethod;
     }
+
     public void setSerialMethod(String serialMethod) {
         this.serialMethod = serialMethod;
     }
+
     public String getHost() {
         return host;
     }
+
     public void setHost(String host) {
         this.host = host;
     }
+
     public int getPort() {
         return port;
     }
+
     public void setPort(int port) {
         this.port = port;
     }
+
     public String getWeight() {
         return weight;
     }
+
     public void setWeight(String weight) {
         this.weight = weight;
     }

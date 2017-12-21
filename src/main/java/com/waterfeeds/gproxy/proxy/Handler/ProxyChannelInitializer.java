@@ -9,7 +9,7 @@ public class ProxyChannelInitializer  extends ChannelInitializer <SocketChannel>
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-        ch = new BaseChannelInitializer().getSocketChannel();
+        ch = BaseChannelInitializer.baseInit(ch);
     }
 
 }
