@@ -36,14 +36,6 @@ public class ServerApplication {
         zookeeperService.registerNode("/server-01", uri, CreateMode.PERSISTENT, bytes, false);
         System.out.println("register " + zookeeperService.exists("/server-01"));*/
 
-        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
-        clientApiService.start();
-        URI uri = new URI("127.0.0.1", 8080);
-        ChannelManager manager = clientApiService.doConnect(uri);
-        GproxyProtocol protocol = new GproxyProtocol(new GproxyHeader(1, 0, 5), new GproxyBody("hello"));;
-        if (manager.isAvailable()) {
-            System.out.println("send content");
-            manager.getChannel().writeAndFlush(protocol);
-        }
+
     }
 }
