@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.proxy.handler;
+package com.waterfeeds.gproxy.server.handler;
 
 import com.waterfeeds.gproxy.network.base.BaseChannelInitializer;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -8,7 +8,7 @@ import io.netty.channel.socket.SocketChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForwardChannelInitializer extends ChannelInitializer<SocketChannel> {
+public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
     private List<ChannelInboundHandlerAdapter> handlers = new ArrayList<ChannelInboundHandlerAdapter>();
 
     public void init(ChannelInboundHandlerAdapter... handlers) {
