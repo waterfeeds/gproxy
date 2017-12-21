@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.proxy.Handler;
+package com.waterfeeds.gproxy.proxy.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
