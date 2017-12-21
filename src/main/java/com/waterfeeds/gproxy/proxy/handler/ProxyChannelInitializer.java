@@ -10,6 +10,7 @@ public class ProxyChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch = BaseChannelInitializer.baseInit(ch);
+        ch.pipeline().addLast(new ProxyHandler());
     }
 
 }

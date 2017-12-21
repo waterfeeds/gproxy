@@ -8,5 +8,6 @@ public class ForwardChannelInitializer extends ChannelInitializer<SocketChannel>
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch = BaseChannelInitializer.baseInit(ch);
+        ch.pipeline().addLast(new ForwardHandler());
     }
 }
