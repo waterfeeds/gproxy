@@ -51,6 +51,7 @@ public class Proxy extends AbstractProxy {
 
     public void setServerAddresses(ConcurrentHashMap<String, URI> serverAddresses) {
         this.serverAddresses = serverAddresses;
+        tryConnectServers();
     }
 
     public void addServerChannel(String serverId, ServerChannel serverChannel) {
@@ -63,10 +64,12 @@ public class Proxy extends AbstractProxy {
 
     public void addServerAddress(String serverId, URI uri) {
         serverAddresses.put(serverId, uri);
+        tryConnectServer(serverId, uri);
     }
 
     public void removeServerAddress(String serverId, URI uri) {
         serverAddresses.remove(serverId);
+        removeServerChannel(serverId);
     }
 
     public void initServerChannels() {
@@ -89,7 +92,15 @@ public class Proxy extends AbstractProxy {
         this.router = router;
     }
 
-    public void tryConnectServer() {
+    public void tryConnectServer(String serverId, URI uri) {
+        ChannelManager manager = clientApiService.doConnect(uri);
+        if (manager.isAvailable()) {
+            ServerChannel serverChannel = new ServerChannel(manager);
+            addServerChannel(serverId, serverChannel);
+        }
+    }
+
+    public void tryConnectServers() {
         Iterator iterator = serverAddresses.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
@@ -101,7 +112,7 @@ public class Proxy extends AbstractProxy {
             ChannelManager manager = clientApiService.doConnect(uri);
             if (manager.isAvailable()) {
                 ServerChannel serverChannel = new ServerChannel(manager);
-                serverChannels.put(serverId, serverChannel);
+                addServerChannel(serverId, serverChannel);
             }
         }
     }
