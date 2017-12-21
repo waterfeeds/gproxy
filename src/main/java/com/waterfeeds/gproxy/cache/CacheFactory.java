@@ -1,11 +1,10 @@
 package com.waterfeeds.gproxy.cache;
 
-import com.waterfeeds.gproxy.cache.Cache;
-
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CacheFactory<K, V> implements Cache<K, V> {
     private ConcurrentHashMap<K, V> commons = new ConcurrentHashMap<K, V>();
+
     @Override
     public V getCache(K k) {
         return commons.get(k);

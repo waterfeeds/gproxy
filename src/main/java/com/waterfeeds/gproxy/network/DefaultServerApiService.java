@@ -1,27 +1,19 @@
 package com.waterfeeds.gproxy.network;
 
 import com.alibaba.dubbo.rpc.Invocation;
-import com.waterfeeds.gproxy.protocol.GproxyProtocol;
-import com.waterfeeds.gproxy.protocol.tcp.TcpDecoder;
-import com.waterfeeds.gproxy.protocol.tcp.TcpEncoder;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
-import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.internal.logging.InternalLogLevel;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class DefaultServerApiService extends ServerApiService implements InitializingBean {
+    private ChannelInitializer<SocketChannel> channelInitializer;
     private DefaultEventLoopGroup serverLoopGroup;
     private NioEventLoopGroup bossGroup;
     private NioEventLoopGroup workGroup;
@@ -37,6 +29,14 @@ public class DefaultServerApiService extends ServerApiService implements Initial
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public ChannelInitializer<SocketChannel> getChannelInitializer() {
+        return channelInitializer;
+    }
+
+    public void setChannelInitializer(ChannelInitializer<SocketChannel> channelInitializer) {
+        this.channelInitializer = channelInitializer;
     }
 
     public void resource() {
@@ -82,33 +82,7 @@ public class DefaultServerApiService extends ServerApiService implements Initial
                 .option(ChannelOption.SO_RCVBUF, 10*1024*1024)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(serverLoopGroup);
-                        //ch.pipeline().addLast(new StringEncoder());
-                        //ch.pipeline().addLast(new StringDecoder());
-                        // 自定义协议
-                        ch.pipeline().addLast(new LoggingHandler(String.valueOf(InternalLogLevel.INFO)));
-                        ch.pipeline().addLast(new TcpEncoder());
-                        ch.pipeline().addLast(new TcpDecoder());
-                        ch.pipeline().addLast(new IdleStateHandler(30, 30, 30));
-                        ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
-                            @Override
-                            public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                                super.channelActive(ctx);
-                                System.out.println(ctx.channel().remoteAddress() + " connected");
-                            }
-
-                            @Override
-                            public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                GproxyProtocol protocol = (GproxyProtocol) msg;
-                                System.out.println("received content: " + protocol.getBody().getContent());
-                            }
-                        });
-                    }
-
-                });
+                .childHandler(channelInitializer);
         try {
             sync = b.bind(port).sync();
             System.out.println(port + " 启动成功");

@@ -2,7 +2,6 @@ package com.waterfeeds.gproxy.proxy.base;
 
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.proxy.channel.ClientChannel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;

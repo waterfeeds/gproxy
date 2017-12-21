@@ -26,6 +26,7 @@ public class DefaultClientApiService extends ClientApiService {
     private DefaultEventLoopGroup defaultEventLoopGroup;
     private NioEventLoopGroup nioEventLoopGroup;
     private Bootstrap bootstrap;
+    private ChannelInitializer<SocketChannel> channelInitializer;
     private static int threads;
 
     static class staticInitBean {
@@ -45,6 +46,14 @@ public class DefaultClientApiService extends ClientApiService {
                 cleanUpClients();
             }
         }, 10, 10, TimeUnit.SECONDS);
+    }
+
+    public ChannelInitializer<SocketChannel> getChannelInitializer() {
+        return channelInitializer;
+    }
+
+    public void setChannelInitializer(ChannelInitializer<SocketChannel> channelInitializer) {
+        this.channelInitializer = channelInitializer;
     }
 
     @Override
@@ -105,18 +114,7 @@ public class DefaultClientApiService extends ClientApiService {
                 .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .option(ChannelOption.SO_SNDBUF, 10 * 1024 * 1024)
                 .option(ChannelOption.SO_RCVBUF, 10 * 1024 * 1024)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        //ch.pipeline().addLast(new StringEncoder());
-                        //ch.pipeline().addLast(new StringDecoder());
-                        ch.pipeline().addLast(new LoggingHandler(String.valueOf(InternalLogLevel.INFO)));
-                        ch.pipeline().addLast(new TcpEncoder());
-                        ch.pipeline().addLast(new TcpDecoder());
-                        ch.pipeline().addLast(new IdleStateHandler(20, 0, 0));
-                        //ch.pipeline().addLast(new OutChannelInvocationHandler());
-
-                    }
-                });
+                .handler(channelInitializer);
         return bootstrap;
     }
 

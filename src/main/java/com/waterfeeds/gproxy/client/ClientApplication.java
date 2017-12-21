@@ -10,6 +10,7 @@ import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 public class ClientApplication {
     public static void main(String[] args) {
         DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
+        clientApiService.setChannelInitializer(new ClientChannelInitializer());
         clientApiService.start();
         URI uri = new URI("127.0.0.1", 8080);
         ChannelManager manager = clientApiService.doConnect(uri);
