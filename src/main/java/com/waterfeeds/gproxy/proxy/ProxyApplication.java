@@ -1,11 +1,6 @@
 package com.waterfeeds.gproxy.proxy;
 
-import com.waterfeeds.gproxy.message.URI;
-import com.waterfeeds.gproxy.network.ChannelManager;
-import com.waterfeeds.gproxy.network.DefaultClientApiService;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
-import com.waterfeeds.gproxy.zookeeper.Certificate;
-import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
 
 public class ProxyApplication {
     public static void main(String[] args) {

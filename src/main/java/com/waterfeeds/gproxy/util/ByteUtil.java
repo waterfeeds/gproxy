@@ -1,7 +1,5 @@
 package com.waterfeeds.gproxy.util;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.util.BitSet;
 import java.util.List;
 

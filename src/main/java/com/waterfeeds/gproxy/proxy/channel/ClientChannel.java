@@ -3,7 +3,7 @@ package com.waterfeeds.gproxy.proxy.channel;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.session.Context;
 
-public class ProxyChannel {
+public class ClientChannel {
     private ChannelManager manager;
     private Context context;
 

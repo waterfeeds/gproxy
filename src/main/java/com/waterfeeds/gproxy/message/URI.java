@@ -1,7 +1,5 @@
 package com.waterfeeds.gproxy.message;
 
-import com.waterfeeds.gproxy.message.Const;
-
 import java.io.Serializable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
