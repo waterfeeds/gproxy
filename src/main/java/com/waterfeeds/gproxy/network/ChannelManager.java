@@ -16,6 +16,12 @@ public class ChannelManager {
         this.uri = uri;
     }
 
+    public ChannelManager(boolean available, Channel channel, URI uri) {
+        this.available = available;
+        this.channel = channel;
+        this.uri = uri;
+    }
+
     public boolean isAvailable() {
         return available;
     }

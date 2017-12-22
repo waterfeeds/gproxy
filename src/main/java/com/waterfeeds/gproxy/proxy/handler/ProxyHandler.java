@@ -8,6 +8,7 @@ import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.proxy.Proxy;
 import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
+import com.waterfeeds.gproxy.proxy.router.Router;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -36,11 +37,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         int cmd = header.getCmd();
         switch (cmd) {
             case GproxyCommand.GAME_EVENT:
-                String content = body.getContent();
-                JSONObject jsonObject = JSON.parseObject(content);
-                String clientId = jsonObject.getString("cid");
-                String serverId = jsonObject.getString("sid");
-                ServerChannel serverChannel = proxy.getClientServerChannel(clientId, serverId);
+                ServerChannel serverChannel = proxy.getRouter().randRoute(proxy.getServerChannels());
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(msg);
                 }

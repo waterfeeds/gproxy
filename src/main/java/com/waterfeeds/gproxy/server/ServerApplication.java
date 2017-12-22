@@ -23,7 +23,8 @@ public class ServerApplication {
 
         DefaultServerApiService serverProxy = new DefaultServerApiService();
         serverProxy.setPort(8081);
-        ServerHandler serverHandler = new ServerHandler();
+        Server server = new Server();
+        ServerHandler serverHandler = new ServerHandler(server);
         ServerChannelInitializer serverInitializer = new ServerChannelInitializer();
         serverInitializer.init(serverHandler);
         serverProxy.setChannelInitializer(serverInitializer);

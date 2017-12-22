@@ -53,6 +53,10 @@ public class URI implements Serializable {
 
     }
 
+    public URI(String address) {
+        parseAddress(address);
+    }
+
     public URI(String host, int port) {
         this.host = host;
         this.port = port;

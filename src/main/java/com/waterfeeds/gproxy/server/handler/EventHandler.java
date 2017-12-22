@@ -4,10 +4,17 @@ import com.waterfeeds.gproxy.protocol.GproxyBody;
 import com.waterfeeds.gproxy.protocol.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
+import com.waterfeeds.gproxy.server.Server;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class EventHandler extends ChannelInboundHandlerAdapter{
+    private Server server;
+
+    public EventHandler(Server server) {
+        this.server = server;
+    }
+
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
