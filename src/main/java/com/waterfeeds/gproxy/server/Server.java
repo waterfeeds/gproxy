@@ -57,6 +57,6 @@ public class Server {
     }
 
     public void initProxyChannels() {
-        proxyChannels = new ConcurrentHashMap<>();
+        proxyChannels = new ConcurrentHashMap<String, ProxyChannel>();
     }
 }
