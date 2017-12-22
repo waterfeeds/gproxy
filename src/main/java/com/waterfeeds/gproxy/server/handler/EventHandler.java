@@ -1,5 +1,9 @@
 package com.waterfeeds.gproxy.server.handler;
 
+import com.waterfeeds.gproxy.protocol.GproxyBody;
+import com.waterfeeds.gproxy.protocol.GproxyCommand;
+import com.waterfeeds.gproxy.protocol.GproxyHeader;
+import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
