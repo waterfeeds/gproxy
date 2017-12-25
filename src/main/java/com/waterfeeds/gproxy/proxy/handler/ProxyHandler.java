@@ -15,6 +15,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class ProxyHandler extends ChannelInboundHandlerAdapter {
     private Proxy proxy;
 
@@ -37,16 +39,20 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        String clientId = ChannelContextFactory.getLongId(ctx);
         GproxyProtocol protocol = (GproxyProtocol) msg;
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         int cmd = header.getCmd();
         switch (cmd) {
             case GproxyCommand.SERVER_EVENT:
-                ServerChannel serverChannel = proxy.getRouter().randRoute(proxy.getServerChannels());
+                ServerChannel serverChannel = proxy.getRouteChannel(clientId);
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(msg);
                 }
+                break;
+            default:
+                break;
         }
     }
 }

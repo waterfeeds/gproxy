@@ -13,6 +13,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class ServerHandler extends ChannelInboundHandlerAdapter{
     private Server server;
 
@@ -24,6 +26,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         String proxyId = ChannelContextFactory.getLongId(ctx);
         ProxyChannel proxyChannel = ChannelContextFactory.getProxyChannel(ctx);
+        System.out.println("connect by proxy");
         server.addProxyChannel(proxyId, proxyChannel);
     }
 
@@ -34,9 +37,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Channel channel = ctx.channel();
-        String address = channel.remoteAddress().toString().substring(1);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        String proxyId = ChannelContextFactory.getLongId(ctx);
         GproxyProtocol protocol = (GproxyProtocol) msg;
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
@@ -49,17 +51,15 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
                     body.setContent("login success");
                     header.setContentLen(body.getContentLen());
                 }
-                // 向当前proxy发送
-                if (server.getProxyChannels().containsKey(address)) {
-                    Channel sendChannel = server.getProxyChannels().get(address).getManager().getChannel();
-                    sendChannel.writeAndFlush(protocol);
-                }
-                // 向所有proxy发送
-                /*if (server.getProxyChannels().size() > 0) {
-                    for (ProxyChannel proxyChannel: server.getProxyChannels().values()) {
-                        proxyChannel.getManager().getChannel().writeAndFlush(protocol);
+                try {
+                    ChannelManager manager = server.getProxyChannels().get(proxyId).getManager();
+                    if (manager.isAvailable()) {
+                        manager.getChannel().writeAndFlush(protocol);
                     }
-                }*/
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
         }
     }
 }

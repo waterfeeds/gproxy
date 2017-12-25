@@ -1,11 +1,12 @@
 package com.waterfeeds.gproxy.server;
 
 import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.server.base.AbstractServer;
 import com.waterfeeds.gproxy.server.channel.ProxyChannel;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Server {
+public class Server extends AbstractServer {
     private String id;
     private String name;
     private URI uri;

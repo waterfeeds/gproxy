@@ -7,8 +7,7 @@ import org.apache.commons.lang3.ArrayUtils;
 
 public class GproxyCoder implements AbstractGproxyCoder {
     @Override
-    public byte[] encode(Object object) {
-        GproxyProtocol protocol = (GproxyProtocol) object;
+    public byte[] encode(GproxyProtocol protocol) {
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         byte[] identifier = ByteUtil.int2Byte(protocol.getIdentifier(), 1);

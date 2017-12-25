@@ -28,6 +28,7 @@ public class BaseChannelInitializer {
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                 GproxyProtocol protocol = (GproxyProtocol) msg;
                 System.out.println("received content: " + protocol.getBody().getContent());
+                ctx.fireChannelRead(msg);
             }
         });
         return ch;
