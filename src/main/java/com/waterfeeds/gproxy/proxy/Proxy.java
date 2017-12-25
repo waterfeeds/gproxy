@@ -15,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Proxy extends AbstractProxy {
     private int proxyId;
+    private URI uri;
     private DefaultClientApiService clientApiService;
     private ConcurrentHashMap<String, ServerChannel> serverChannels;
     private ConcurrentHashMap<String, URI> serverAddresses;
@@ -28,6 +29,14 @@ public class Proxy extends AbstractProxy {
     public Proxy(int proxyId) {
         this.proxyId = proxyId;
         initServerChannels();
+    }
+
+    public URI getUri() {
+        return uri;
+    }
+
+    public void setUri(URI uri) {
+        this.uri = uri;
     }
 
     public DefaultClientApiService getClientApiService() {

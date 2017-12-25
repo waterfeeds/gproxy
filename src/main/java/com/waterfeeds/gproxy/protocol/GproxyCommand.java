@@ -9,5 +9,5 @@ public class GproxyCommand {
     public static final int GET_USER_COUNT = 6;
     public static final int GET_GROUP_COUNT = 7;
 
-    public static final int GAME_EVENT = 101;
+    public static final int SERVER_EVENT = 101;
 }

@@ -1,5 +1,6 @@
 package com.waterfeeds.gproxy.server;
 
+import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.server.channel.ProxyChannel;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Server {
     private String id;
     private String name;
+    private URI uri;
     private ConcurrentHashMap<String, ProxyChannel> proxyChannels;
 
     public Server() {
@@ -40,6 +42,14 @@ public class Server {
         this.name = name;
     }
 
+    public URI getUri() {
+        return uri;
+    }
+
+    public void setUri(URI uri) {
+        this.uri = uri;
+    }
+
     public ConcurrentHashMap<String, ProxyChannel> getProxyChannels() {
         return proxyChannels;
     }
@@ -48,12 +58,12 @@ public class Server {
         this.proxyChannels = proxyChannels;
     }
 
-    public void addProxyChannel(String address, ProxyChannel proxyChannel) {
-        proxyChannels.put(address, proxyChannel);
+    public void addProxyChannel(String proxyId, ProxyChannel proxyChannel) {
+        proxyChannels.put(proxyId, proxyChannel);
     }
 
-    public void removeProxyChannel(String address) {
-        proxyChannels.remove(address);
+    public void removeProxyChannel(String proxyId) {
+        proxyChannels.remove(proxyId);
     }
 
     public void initProxyChannels() {

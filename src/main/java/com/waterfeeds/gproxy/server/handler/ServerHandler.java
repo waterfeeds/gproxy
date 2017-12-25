@@ -1,6 +1,7 @@
 package com.waterfeeds.gproxy.server.handler;
 
 import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.network.ChannelContextFactory;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.protocol.GproxyBody;
 import com.waterfeeds.gproxy.protocol.GproxyCommand;
@@ -20,19 +21,16 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        Channel channel = ctx.channel();
-        String address = channel.remoteAddress().toString().substring(1);
-        server.removeProxyChannel(address);
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        String proxyId = ChannelContextFactory.getLongId(ctx);
+        ProxyChannel proxyChannel = ChannelContextFactory.getProxyChannel(ctx);
+        server.addProxyChannel(proxyId, proxyChannel);
     }
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Channel channel = ctx.channel();
-        String address = channel.remoteAddress().toString().substring(1);
-        ChannelManager manager = new ChannelManager(true, channel, new URI(address));
-        ProxyChannel proxyChannel = new ProxyChannel(manager);
-        server.addProxyChannel(address, proxyChannel);
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        String proxyId = ChannelContextFactory.getLongId(ctx);
+        server.removeProxyChannel(proxyId);
     }
 
     @Override
@@ -44,7 +42,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
         GproxyBody body = protocol.getBody();
         int cmd = header.getCmd();
         switch (cmd) {
-            case GproxyCommand.GAME_EVENT:
+            case GproxyCommand.SERVER_EVENT:
                 String content = body.getContent();
                 if ("login".equals(content)) {
                     header.setCmd(GproxyCommand.SEND_TO_ALL);

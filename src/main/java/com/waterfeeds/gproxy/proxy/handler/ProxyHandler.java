@@ -1,14 +1,17 @@
 package com.waterfeeds.gproxy.proxy.handler;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.network.ChannelContextFactory;
+import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.protocol.GproxyBody;
 import com.waterfeeds.gproxy.protocol.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.proxy.Proxy;
+import com.waterfeeds.gproxy.proxy.channel.ClientChannel;
 import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
-import com.waterfeeds.gproxy.proxy.router.Router;
+import com.waterfeeds.gproxy.server.channel.ProxyChannel;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -21,12 +24,15 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
+        String clientId = ChannelContextFactory.getLongId(ctx);
+        ClientChannel clientChannel = ChannelContextFactory.getClientChannel(ctx);
+        proxy.addClientChannel(clientId, clientChannel);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
+        String clientId = ChannelContextFactory.getLongId(ctx);
+        proxy.removeClientChannel(clientId);
     }
 
     @Override
@@ -36,7 +42,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         GproxyBody body = protocol.getBody();
         int cmd = header.getCmd();
         switch (cmd) {
-            case GproxyCommand.GAME_EVENT:
+            case GproxyCommand.SERVER_EVENT:
                 ServerChannel serverChannel = proxy.getRouter().randRoute(proxy.getServerChannels());
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(msg);

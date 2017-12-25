@@ -12,6 +12,7 @@ public abstract class AbstractProxy {
     public ConcurrentHashMap<String, List<ClientChannel>> userChannels = new ConcurrentHashMap<String, List<ClientChannel>>();
     public ConcurrentHashMap<String, List<ClientChannel>> groupChannels = new ConcurrentHashMap<String, List<ClientChannel>>();
 
+
     public void sendToAll(GproxyProtocol message) {
 
     }
@@ -36,6 +37,14 @@ public abstract class AbstractProxy {
         return false;
     }
 
+    public void addClientChannel(String clientId, ClientChannel clientChannel) {
+        clientChannels.put(clientId, clientChannel);
+    }
+
+    public void removeClientChannel(String clientId) {
+        clientChannels.remove(clientId);
+    }
+
     public int getAllClientCount() {
         return 0;
     }
@@ -50,10 +59,6 @@ public abstract class AbstractProxy {
 
     public List<String> getClientIdByUser(String userId) {
         return new ArrayList<String>();
-    }
-
-    public boolean closeClient(String clientId) {
-        return false;
     }
 
     public boolean bindUid(String clientId, String userId) {

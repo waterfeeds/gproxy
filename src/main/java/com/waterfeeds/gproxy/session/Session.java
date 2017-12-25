@@ -1,4 +1,4 @@
 package com.waterfeeds.gproxy.session;
 
-public class ClientSession {
+public class Session {
 }
