@@ -35,6 +35,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        String proxyId = ChannelContextFactory.getLongId(ctx);
         Channel channel = ctx.channel();
         String address = channel.remoteAddress().toString().substring(1);
         GproxyProtocol protocol = (GproxyProtocol) msg;
@@ -49,17 +50,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
                     body.setContent("login success");
                     header.setContentLen(body.getContentLen());
                 }
-                // 向当前proxy发送
-                if (server.getProxyChannels().containsKey(address)) {
-                    Channel sendChannel = server.getProxyChannels().get(address).getManager().getChannel();
-                    sendChannel.writeAndFlush(protocol);
+                ChannelManager manager = server.getProxyChannels().get(proxyId).getManager();
+                if (manager.isAvailable()) {
+                    manager.getChannel().writeAndFlush(protocol);
                 }
-                // 向所有proxy发送
-                /*if (server.getProxyChannels().size() > 0) {
-                    for (ProxyChannel proxyChannel: server.getProxyChannels().values()) {
-                        proxyChannel.getManager().getChannel().writeAndFlush(protocol);
-                    }
-                }*/
         }
     }
 }

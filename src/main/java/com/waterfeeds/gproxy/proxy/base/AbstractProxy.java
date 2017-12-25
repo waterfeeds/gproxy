@@ -1,10 +1,14 @@
 package com.waterfeeds.gproxy.proxy.base;
 
+import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.proxy.channel.ClientChannel;
+import sun.nio.cs.ext.MS874;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractProxy {
@@ -14,7 +18,14 @@ public abstract class AbstractProxy {
 
 
     public void sendToAll(GproxyProtocol message) {
-
+        Iterator iterator = clientChannels.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            ChannelManager manager = ((ClientChannel) entry.getValue()).getManager();
+            if (manager.isAvailable()) {
+                manager.getChannel().writeAndFlush(message);
+            }
+        }
     }
 
     public void sendToClient(String clientId, GproxyProtocol message) {

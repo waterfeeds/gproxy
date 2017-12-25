@@ -39,7 +39,13 @@ public class ChannelManager {
     }
 
     public Channel getChannel() {
-        return channelFuture.channel();
+        if (channel != null) {
+            return channel;
+        }
+        if (channelFuture != null) {
+            return channelFuture.channel();
+        }
+        return null;
     }
 
     public void setChannel(Channel channel) {

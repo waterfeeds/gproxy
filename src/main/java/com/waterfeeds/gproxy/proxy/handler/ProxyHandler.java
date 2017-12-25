@@ -37,13 +37,14 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        String clientId = ChannelContextFactory.getLongId(ctx);
         GproxyProtocol protocol = (GproxyProtocol) msg;
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         int cmd = header.getCmd();
         switch (cmd) {
             case GproxyCommand.SERVER_EVENT:
-                ServerChannel serverChannel = proxy.getRouter().randRoute(proxy.getServerChannels());
+                ServerChannel serverChannel = proxy.getRouteChannel(clientId);
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(msg);
                 }

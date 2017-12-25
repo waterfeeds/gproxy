@@ -102,7 +102,17 @@ public class Proxy extends AbstractProxy {
         this.router = router;
     }
 
-    public ServerChannel getClientServerChannel(String clientId, String serverId) {
+    public ServerChannel getRouteChannel(String clientId) {
+        if (!routerChannelMap.containsKey(clientId)) {
+            router.randRoute(clientId, serverChannels, routerChannelMap);
+        }
+        if (routerChannelMap.containsKey(clientId)) {
+            return routerChannelMap.get(clientId);
+        }
+        return null;
+    }
+
+    public ServerChannel getRouteChannel(String clientId, String serverId) {
         if (!routerChannelMap.containsKey(clientId)) {
             router.routeByServer(clientId, serverId, serverChannels, routerChannelMap);
         }

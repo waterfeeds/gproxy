@@ -13,6 +13,24 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ProxyApplication {
     public static void main(String[] args) {
+        startProxy();
+    }
+
+    public static void startProxy() {
+        DefaultServerApiService serverProxy = new DefaultServerApiService();
+        serverProxy.setPort(8080);
+        Proxy proxy = new Proxy();
+        ProxyHandler handler = new ProxyHandler(proxy);
+        ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer();
+        proxyInitializer.init(handler);
+        serverProxy.setChannelInitializer(proxyInitializer);
+        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
+        ForwardHandler forwardHandler = new ForwardHandler(proxy);
+        ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer();
+        forwardInitializer.init(forwardHandler);
+        clientApiService.setChannelInitializer(forwardInitializer);
+        proxy.setClientApiService(clientApiService);
+        URI uri = new URI();
         ZookeeperService zookeeperService = new ZookeeperService();
         zookeeperService.setPath("gproxy");
         zookeeperService.setZkAddress("127.0.0.1:2181");
@@ -28,23 +46,9 @@ public class ProxyApplication {
             address = zookeeperService.getData(serverId);
             System.out.println("server address:" + address);
         }
-        DefaultServerApiService serverProxy = new DefaultServerApiService();
-        serverProxy.setPort(8080);
-        Proxy proxy = new Proxy();
-        URI uri = new URI();
         if (!StringUtils.isBlank(address) && uri.parseAddress(address)) {
             proxy.addServerAddress(serverId, uri);
         }
-        ProxyHandler handler = new ProxyHandler(proxy);
-        ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer();
-        proxyInitializer.init(handler);
-        serverProxy.setChannelInitializer(proxyInitializer);
-        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
-        ForwardHandler forwardHandler = new ForwardHandler(proxy);
-        ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer();
-        forwardInitializer.init(forwardHandler);
-        clientApiService.setChannelInitializer(forwardInitializer);
-        proxy.setClientApiService(clientApiService);
         serverProxy.start();
     }
 }
