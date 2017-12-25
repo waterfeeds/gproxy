@@ -19,8 +19,7 @@ public class ServerApplication {
         serverProxy.setPort(8081);
         Server server = new Server();
         ServerHandler serverHandler = new ServerHandler(server);
-        ServerChannelInitializer serverInitializer = new ServerChannelInitializer();
-        serverInitializer.init(serverHandler);
+        ServerChannelInitializer serverInitializer = new ServerChannelInitializer(server);
         serverProxy.setChannelInitializer(serverInitializer);
         serverProxy.start();
     }

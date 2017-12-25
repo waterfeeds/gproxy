@@ -15,7 +15,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ServerHandler extends ChannelInboundHandlerAdapter{
+public class ServerHandler extends ChannelInboundHandlerAdapter {
     private Server server;
 
     public ServerHandler(Server server) {
@@ -47,12 +47,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
         int cmd = header.getCmd();
         switch (cmd) {
             case GproxyCommand.SERVER_EVENT:
-                String content = body.getContent();
-                if ("login".equals(content)) {
-                    header.setCmd(GproxyCommand.SEND_TO_ALL);
-                    body.setContent("login success");
-                    header.setContentLen(body.getContentLen());
-                }
+                header.setCmd(GproxyCommand.SEND_TO_ALL);
+                body.setContent("receive: " + body.getContent());
+                header.setContentLen(body.getContentLen());
+
                 ChannelManager manager = server.getProxyChannels().get(proxyId).getManager();
                 if (manager.isAvailable()) {
                     manager.getChannel().writeAndFlush(protocol);

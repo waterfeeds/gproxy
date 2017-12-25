@@ -23,13 +23,11 @@ public class ProxyApplication {
         serverProxy.setPort(8080);
         Proxy proxy = new Proxy();
         ProxyHandler handler = new ProxyHandler(proxy);
-        ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer();
-        proxyInitializer.init(handler);
+        ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer(proxy);
         serverProxy.setChannelInitializer(proxyInitializer);
         DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
         ForwardHandler forwardHandler = new ForwardHandler(proxy);
-        ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer();
-        forwardInitializer.init(forwardHandler);
+        ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer(proxy);
         clientApiService.setChannelInitializer(forwardInitializer);
         proxy.setClientApiService(clientApiService);
         URI uri = new URI();
