@@ -25,4 +25,5 @@ public class ClientApplication {
             manager.getChannel().writeAndFlush(protocol);
         }
     }
+
 }

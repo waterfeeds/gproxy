@@ -43,4 +43,5 @@ public class ServerApplication {
             System.out.println("register " + zookeeperService.exists("/server-01"));
         }
     }
+
 }

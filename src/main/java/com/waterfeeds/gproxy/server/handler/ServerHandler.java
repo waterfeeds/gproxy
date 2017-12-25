@@ -13,6 +13,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class ServerHandler extends ChannelInboundHandlerAdapter{
     private Server server;
 
@@ -24,6 +26,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter{
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         String proxyId = ChannelContextFactory.getLongId(ctx);
         ProxyChannel proxyChannel = ChannelContextFactory.getProxyChannel(ctx);
+        System.out.println("connect by proxy");
         server.addProxyChannel(proxyId, proxyChannel);
     }
 

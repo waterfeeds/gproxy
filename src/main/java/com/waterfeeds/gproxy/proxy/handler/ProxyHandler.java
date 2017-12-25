@@ -15,6 +15,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class ProxyHandler extends ChannelInboundHandlerAdapter {
     private Proxy proxy;
 
@@ -48,6 +50,9 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(msg);
                 }
+                break;
+            default:
+                break;
         }
     }
 }
