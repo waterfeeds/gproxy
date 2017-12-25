@@ -27,6 +27,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         String clientId = ChannelContextFactory.getLongId(ctx);
+        System.out.println(clientId);
         ClientChannel clientChannel = ChannelContextFactory.getClientChannel(ctx);
         proxy.addClientChannel(clientId, clientChannel);
     }

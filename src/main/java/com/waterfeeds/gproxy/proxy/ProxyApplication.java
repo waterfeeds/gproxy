@@ -22,11 +22,9 @@ public class ProxyApplication {
         DefaultServerApiService serverProxy = new DefaultServerApiService();
         serverProxy.setPort(8080);
         Proxy proxy = new Proxy();
-        ProxyHandler handler = new ProxyHandler(proxy);
         ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer(proxy);
         serverProxy.setChannelInitializer(proxyInitializer);
         DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
-        ForwardHandler forwardHandler = new ForwardHandler(proxy);
         ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer(proxy);
         clientApiService.setChannelInitializer(forwardInitializer);
         proxy.setClientApiService(clientApiService);
@@ -44,7 +42,6 @@ public class ProxyApplication {
         String address = "";
         if (zookeeperService.exists(serverId)) {
             address = zookeeperService.getData(serverId);
-            System.out.println("server address:" + address);
         }
         if (!StringUtils.isBlank(address) && uri.parseAddress(address)) {
             proxy.addServerAddress(serverId, uri);
@@ -65,8 +62,10 @@ public class ProxyApplication {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        zookeeperService.registerNode("/proxy-01", uri, CreateMode.EPHEMERAL_SEQUENTIAL, bytes, false);
-        System.out.println("register " + zookeeperService.exists("/proxy-01"));
+        if (zookeeperService.exists("/proxy-01")) {
+            zookeeperService.registerNode("/proxy-01", uri, CreateMode.PERSISTENT, bytes, false);
+            System.out.println("register " + zookeeperService.exists("/proxy-01"));
+        }
 
     }
 }
