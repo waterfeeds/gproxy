@@ -1,8 +1,11 @@
 package com.waterfeeds.gproxy.proxy.handler;
 
+import com.waterfeeds.gproxy.network.ChannelContextFactory;
+import com.waterfeeds.gproxy.network.base.BaseChannelInitializer;
 import com.waterfeeds.gproxy.protocol.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.proxy.Proxy;
+import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -15,12 +18,15 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
+        String serverId = ChannelContextFactory.getLongId(ctx);
+        ServerChannel serverChannel = ChannelContextFactory.getServerChannel(ctx);
+        proxy.addServerChannel(serverId, serverChannel);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
+        String serverId = ChannelContextFactory.getLongId(ctx);
+        proxy.removeServerChannel(serverId);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.waterfeeds.gproxy.network.base.BaseChannelInitializer;
 import com.waterfeeds.gproxy.protocol.tcp.TcpDecoder;
 import com.waterfeeds.gproxy.protocol.tcp.TcpEncoder;
 import com.waterfeeds.gproxy.server.Server;
+import com.waterfeeds.gproxy.user.DefaultEventHandler;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
@@ -29,6 +30,6 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch = BaseChannelInitializer.baseInit(ch);
-        ch.pipeline().addLast(new ServerHandler(server));
+        ch.pipeline().addLast(new ServerHandler(server, new DefaultEventHandler()));
     }
 }

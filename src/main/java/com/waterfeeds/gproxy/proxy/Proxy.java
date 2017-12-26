@@ -124,10 +124,10 @@ public class Proxy extends AbstractProxy {
 
     public void tryConnectServer(String serverId, URI uri) {
         ChannelManager manager = clientApiService.doConnect(uri);
-        if (manager.isAvailable()) {
+        /*if (manager.isAvailable()) {
             ServerChannel serverChannel = new ServerChannel(manager);
             addServerChannel(serverId, serverChannel);
-        }
+        }*/
     }
 
     public void tryConnectServers() {

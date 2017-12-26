@@ -9,6 +9,8 @@ import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.server.Server;
 import com.waterfeeds.gproxy.server.channel.ProxyChannel;
+import com.waterfeeds.gproxy.user.DefaultEventHandler;
+import com.waterfeeds.gproxy.user.base.AbstractEventHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -17,9 +19,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     private Server server;
+    private AbstractEventHandler eventHandler;
 
-    public ServerHandler(Server server) {
+    public ServerHandler(Server server, AbstractEventHandler eventHandler) {
         this.server = server;
+        this.eventHandler = eventHandler;
     }
 
     @Override
@@ -40,16 +44,12 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         String proxyId = ChannelContextFactory.getLongId(ctx);
         Channel channel = ctx.channel();
         String address = channel.remoteAddress().toString().substring(1);
-        GproxyProtocol protocol = (GproxyProtocol) msg;
+        GproxyProtocol protocol = eventHandler.handleEvent((GproxyProtocol) msg);
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         int cmd = header.getCmd();
         switch (cmd) {
-            case GproxyCommand.SERVER_EVENT:
-                header.setCmd(GproxyCommand.SEND_TO_ALL);
-                body.setContent("receive: " + body.getContent());
-                header.setContentLen(body.getContentLen());
-
+            case GproxyCommand.SEND_TO_CLIENT:
                 ChannelManager manager = server.getProxyChannels().get(proxyId).getManager();
                 if (manager.isAvailable()) {
                     manager.getChannel().writeAndFlush(protocol);
