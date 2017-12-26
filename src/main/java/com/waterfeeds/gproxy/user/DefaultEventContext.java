@@ -5,11 +5,11 @@ import com.waterfeeds.gproxy.user.base.AbstractEventContext;
 public class DefaultEventContext implements AbstractEventContext {
     @Override
     public String generateUserId() {
-        return "u";
+        return "user";
     }
 
     @Override
     public String generateGroupId() {
-        return "g";
+        return "group";
     }
 }
