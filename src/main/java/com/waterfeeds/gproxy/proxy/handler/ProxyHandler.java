@@ -42,7 +42,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         int cmd = header.getCmd();
         switch (cmd) {
             case GproxyCommand.CLIENT_EVENT:
-                protocol = BaseEventConverter.converterByClientId(protocol, clientId, content);
+                protocol = BaseEventConverter.converterByClientId(protocol, content, clientId);
                 ServerChannel serverChannel = proxy.getRouteChannel(clientId);
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(protocol);

@@ -18,8 +18,9 @@ public class DefaultEventHandler implements AbstractEventHandler{
         switch (cmd) {
             case GproxyCommand.CLIENT_EVENT:
                 String clientId = JsonBuf.getClientId(content);
-                String message = JsonBuf.getMessage(content);
-                return BaseEventConverter.converterByClientId(protocol, clientId, message, GproxyCommand.SERVER_EVENT);
+                String message = "receive: " + JsonBuf.getMessage(content);
+                //return BaseEventConverter.converterByClientId(protocol, message, clientId, GproxyCommand.SEND_TO_CLIENT);
+                return BaseEventConverter.converter(protocol, message, GproxyCommand.SEND_TO_ALL);
             default:
                 break;
         }
