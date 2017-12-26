@@ -22,7 +22,7 @@ public class ClientApplication {
         URI uri = new URI("127.0.0.1", 8080);
         ChannelManager manager = clientApiService.doConnect(uri);
         GproxyBody body = new GproxyBody("login");
-        GproxyHeader header = new GproxyHeader(GproxyCommand.SERVER_EVENT, 0, body.getContentLen());
+        GproxyHeader header = new GproxyHeader(GproxyCommand.CLIENT_EVENT, 0, body.getContentLen());
         GproxyProtocol protocol = new GproxyProtocol(header, body);
         Scanner scanner = new Scanner(System.in);
         while (manager.isAvailable()) {

@@ -7,4 +7,9 @@ public class Const {
     public static int ZOOKEEPER_CONNECTION_TIME_OUT = 5000;
 
     public static int HEAD_DATA = 0x76;
+
+    public static String CLIENT_ID = "cid";
+    public static String USER_ID = "uid";
+    public static String GROUP_ID = "gid";
+    public static String MESSAGE = "msg";
 }

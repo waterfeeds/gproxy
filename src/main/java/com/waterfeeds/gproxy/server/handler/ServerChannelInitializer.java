@@ -30,6 +30,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch = BaseChannelInitializer.baseInit(ch);
-        ch.pipeline().addLast(new ServerHandler(server, new DefaultEventHandler()));
+        ch.pipeline().addLast(new EventHandler(new DefaultEventHandler()));
+        ch.pipeline().addLast(new ServerHandler(server));
     }
 }

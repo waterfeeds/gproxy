@@ -1,5 +1,7 @@
 package com.waterfeeds.gproxy.proxy.handler;
 
+import com.alibaba.fastjson.JSONObject;
+import com.waterfeeds.gproxy.message.Const;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.ChannelContextFactory;
 import com.waterfeeds.gproxy.network.ChannelManager;
@@ -46,7 +48,11 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         GproxyBody body = protocol.getBody();
         int cmd = header.getCmd();
         switch (cmd) {
-            case GproxyCommand.SERVER_EVENT:
+            case GproxyCommand.CLIENT_EVENT:
+                JSONObject object = new JSONObject();
+                object.put(Const.CLIENT_ID, body.getContent());
+                body.setContent(object.toString());
+                header.setContentLen(body.getContentLen());
                 ServerChannel serverChannel = proxy.getRouteChannel(clientId);
                 if (serverChannel.getManager().isAvailable()) {
                     serverChannel.getManager().getChannel().writeAndFlush(msg);

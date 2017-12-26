@@ -1,4 +1,6 @@
-package com.waterfeeds.gproxy.user.base;
+package com.waterfeeds.gproxy.user;
+
+import com.waterfeeds.gproxy.user.base.AbstractEventContext;
 
 public class DefaultEventContext implements AbstractEventContext {
     @Override

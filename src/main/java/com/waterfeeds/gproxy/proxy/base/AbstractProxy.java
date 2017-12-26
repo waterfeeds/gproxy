@@ -17,27 +17,43 @@ public abstract class AbstractProxy {
     public ConcurrentHashMap<String, List<ClientChannel>> groupChannels = new ConcurrentHashMap<String, List<ClientChannel>>();
 
 
-    public void sendToAll(GproxyProtocol message) {
+    public void sendToAll(GproxyProtocol protocol) {
         Iterator iterator = clientChannels.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
             ChannelManager manager = ((ClientChannel) entry.getValue()).getManager();
             if (manager.isAvailable()) {
-                manager.getChannel().writeAndFlush(message);
+                manager.getChannel().writeAndFlush(protocol);
             }
         }
     }
 
-    public void sendToClient(String clientId, GproxyProtocol message) {
-
+    public void sendToClient(String clientId, GproxyProtocol protocol) {
+        ClientChannel clientChannel = clientChannels.get(clientId);
+        ChannelManager manager = clientChannel.getManager();
+        if (manager.isAvailable()) {
+            manager.getChannel().writeAndFlush(protocol);
+        }
     }
 
-    public void sendToUser(String userId, GproxyProtocol message) {
-
+    public void sendToUser(String userId, GproxyProtocol protocol) {
+        List<ClientChannel> lists = userChannels.get(userId);
+        for (ClientChannel clientChannel: lists) {
+            ChannelManager manager = clientChannel.getManager();
+            if (manager.isAvailable()) {
+                manager.getChannel().writeAndFlush(protocol);
+            }
+        }
     }
 
-    public void sendToGroup(String groupId, GproxyProtocol message) {
-
+    public void sendToGroup(String groupId, GproxyProtocol protocol) {
+        List<ClientChannel> lists = groupChannels.get(groupId);
+        for (ClientChannel clientChannel: lists) {
+            ChannelManager manager = clientChannel.getManager();
+            if (manager.isAvailable()) {
+                manager.getChannel().writeAndFlush(protocol);
+            }
+        }
     }
 
     public boolean isOnline(String clientId) {
