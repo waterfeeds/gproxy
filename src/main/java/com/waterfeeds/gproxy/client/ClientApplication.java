@@ -31,6 +31,7 @@ public class ClientApplication {
             header.setContentLen(body.getContentLen());
             protocol.setBody(body);
             protocol.setHeader(header);
+            System.out.println("send " + content);
             manager.getChannel().writeAndFlush(protocol);
         }
     }

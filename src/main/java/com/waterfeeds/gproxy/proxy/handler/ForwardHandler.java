@@ -6,7 +6,7 @@ import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.protocol.base.JsonBuf;
 import com.waterfeeds.gproxy.proxy.Proxy;
 import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
-import com.waterfeeds.gproxy.server.base.BaseEventConverter;
+import com.waterfeeds.gproxy.protocol.base.BaseEventConverter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -42,7 +42,7 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
             case GproxyCommand.SEND_TO_CLIENT:
                 String clientId = JsonBuf.getClientId(content);
                 String message = JsonBuf.getMessage(content);
-                protocol = BaseEventConverter.send(protocol, message);
+                protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToClient(clientId, protocol);
                 break;
             case GproxyCommand.SEND_TO_USER:
