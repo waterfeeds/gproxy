@@ -5,7 +5,6 @@ import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 
 public class BaseEventConverter {
-
     public static GproxyProtocol converter(GproxyProtocol protocol, String message, int cmd) {
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();

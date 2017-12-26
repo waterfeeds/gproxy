@@ -30,6 +30,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         String clientId = ChannelContextFactory.getLongId(ctx);
         proxy.removeClientChannel(clientId);
+        proxy.removeRouteChannel(clientId);
     }
 
     @Override

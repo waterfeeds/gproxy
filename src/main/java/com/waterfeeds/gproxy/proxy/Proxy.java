@@ -122,12 +122,14 @@ public class Proxy extends AbstractProxy {
         return null;
     }
 
+    public void removeRouteChannel(String clientId) {
+        if (routerChannelMap.containsKey(clientId)) {
+            routerChannelMap.remove(clientId);
+        }
+    }
+
     public void tryConnectServer(String serverId, URI uri) {
         ChannelManager manager = clientApiService.doConnect(uri);
-        /*if (manager.isAvailable()) {
-            ServerChannel serverChannel = new ServerChannel(manager);
-            addServerChannel(serverId, serverChannel);
-        }*/
     }
 
     public void tryConnectServers() {
