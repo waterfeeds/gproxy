@@ -9,12 +9,7 @@ import com.waterfeeds.gproxy.user.base.AbstractEventHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-public class EventHandler extends ChannelInboundHandlerAdapter{
-    private AbstractEventHandler eventHandler;
-
-    public EventHandler(AbstractEventHandler eventHandler) {
-        this.eventHandler = eventHandler;
-    }
+public class EventHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
@@ -28,7 +23,6 @@ public class EventHandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        GproxyProtocol protocol = eventHandler.handleEvent((GproxyProtocol) msg);
-        ctx.fireChannelRead(protocol);
+        ctx.fireChannelRead(msg);
     }
 }

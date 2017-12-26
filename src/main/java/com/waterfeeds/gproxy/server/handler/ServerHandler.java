@@ -22,9 +22,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     private Server server;
+    private AbstractEventHandler handler;
 
-    public ServerHandler(Server server) {
+    public ServerHandler(Server server, AbstractEventHandler handler) {
         this.server = server;
+        this.handler = handler;
     }
 
     @Override
@@ -44,6 +46,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String proxyId = ChannelContextFactory.getLongId(ctx);
         GproxyProtocol protocol = (GproxyProtocol) msg;
+        ChannelManager manager = server.getProxyChannels().get(proxyId).getManager();
         int cmd = protocol.getHeader().getCmd();
         switch (cmd) {
             case GproxyCommand.SEND_TO_ALL:
@@ -56,10 +59,31 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 sendToAllProxy(protocol);
                 break;
             case GproxyCommand.SEND_TO_CLIENT:
-                ChannelManager manager = server.getProxyChannels().get(proxyId).getManager();
                 if (manager.isAvailable()) {
                     manager.getChannel().writeAndFlush(protocol);
                 }
+                break;
+            case GproxyCommand.BIND_UID:
+                if (manager.isAvailable()) {
+                    manager.getChannel().writeAndFlush(protocol);
+                }
+                break;
+            case GproxyCommand.UN_BIND_UID:
+                if (manager.isAvailable()) {
+                    manager.getChannel().writeAndFlush(protocol);
+                }
+                break;
+            case GproxyCommand.JOIN_GROUP:
+                if (manager.isAvailable()) {
+                    manager.getChannel().writeAndFlush(protocol);
+                }
+                break;
+            case GproxyCommand.LEAVE_GROUP:
+                if (manager.isAvailable()) {
+                    manager.getChannel().writeAndFlush(protocol);
+                }
+                break;
+            default:
                 break;
         }
     }

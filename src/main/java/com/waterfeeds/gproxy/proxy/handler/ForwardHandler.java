@@ -34,6 +34,7 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         GproxyProtocol protocol = (GproxyProtocol) msg;
         String content = protocol.getBody().getContent();
+        String message = "";
         int cmd = protocol.getHeader().getCmd();
         switch (cmd) {
             case GproxyCommand.SEND_TO_ALL:
@@ -41,19 +42,36 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
                 break;
             case GproxyCommand.SEND_TO_CLIENT:
                 String clientId = JsonBuf.getClientId(content);
-                String message = JsonBuf.getMessage(content);
+                message = JsonBuf.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
-                proxy.sendToClient(clientId, protocol);
+                proxy.sendToClient(protocol, clientId);
                 break;
             case GproxyCommand.SEND_TO_USER:
+                String userId = JsonBuf.getUserId(content);
+                message = JsonBuf.getMessage(content);
+                protocol = BaseEventConverter.converter(protocol, message);
+                proxy.sendToUser(protocol, userId);
                 break;
             case GproxyCommand.SEND_TO_GROUP:
+                String groupId = JsonBuf.getGroupId(content);
+                message = JsonBuf.getMessage(content);
+                protocol = BaseEventConverter.converter(protocol, message);
+                proxy.sendToGroup(protocol, groupId);
                 break;
             case GproxyCommand.GET_CLIENT_COUNT:
                 break;
             case GproxyCommand.GET_USER_COUNT:
                 break;
             case GproxyCommand.GET_GROUP_COUNT:
+                break;
+            case GproxyCommand.BIND_UID:
+
+                break;
+            case GproxyCommand.UN_BIND_UID:
+                break;
+            case GproxyCommand.JOIN_GROUP:
+                break;
+            case GproxyCommand.LEAVE_GROUP:
                 break;
         }
     }

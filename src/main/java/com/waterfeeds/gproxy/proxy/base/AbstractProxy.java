@@ -24,7 +24,7 @@ public abstract class AbstractProxy {
         }
     }
 
-    public void sendToClient(String clientId, GproxyProtocol protocol) {
+    public void sendToClient(GproxyProtocol protocol, String clientId) {
         if (clientChannels.containsKey(clientId)) {
             ClientChannel clientChannel = clientChannels.get(clientId);
             ChannelManager manager = clientChannel.getManager();
@@ -34,14 +34,14 @@ public abstract class AbstractProxy {
         }
     }
 
-    public void sendToUser(String userId, GproxyProtocol protocol) {
+    public void sendToUser(GproxyProtocol protocol, String userId) {
         if (userChannels.containsKey(userId)) {
             HashMap<String, ClientChannel> map = userChannels.get(userId);
             sendAll(map, protocol);
         }
     }
 
-    public void sendToGroup(String groupId, GproxyProtocol protocol) {
+    public void sendToGroup(GproxyProtocol protocol, String groupId) {
         if (groupChannels.containsKey(groupId)) {
             HashMap<String, ClientChannel> map = groupChannels.get(groupId);
             sendAll(map, protocol);
