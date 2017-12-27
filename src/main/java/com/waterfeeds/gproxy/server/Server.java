@@ -1,142 +1,88 @@
 package com.waterfeeds.gproxy.server;
 
 import com.waterfeeds.gproxy.message.URI;
-import com.waterfeeds.gproxy.network.ChannelManager;
-import com.waterfeeds.gproxy.protocol.GproxyCommand;
-import com.waterfeeds.gproxy.protocol.GproxyProtocol;
-import com.waterfeeds.gproxy.protocol.base.BaseEventConverter;
-import com.waterfeeds.gproxy.server.base.AbstractServer;
-import com.waterfeeds.gproxy.server.channel.ProxyChannel;
-import com.waterfeeds.gproxy.user.base.AbstractEventHandler;
-import org.apache.commons.lang3.StringUtils;
+import com.waterfeeds.gproxy.network.DefaultServerApiService;
+import com.waterfeeds.gproxy.server.base.Callback;
+import com.waterfeeds.gproxy.server.handler.ServerChannelInitializer;
+import com.waterfeeds.gproxy.zookeeper.Certificate;
+import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
+import org.apache.zookeeper.CreateMode;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+public class Server {
+    private BaseServer baseServer;
+    private Callback callback;
 
-public class Server extends AbstractServer{
-    private String id;
-    private String name;
-    private URI uri;
-    private ConcurrentHashMap<String, ProxyChannel> proxyChannels;
-
-    public Server() {
-        initProxyChannels();
+    public Server(Callback callback) {
+        this.callback = callback;
+        this.callback.setServer(this);
     }
 
-    public Server(String serverId) {
-        this.id = serverId;
-        initProxyChannels();
+    public void startServer() {
+        DefaultServerApiService serverService = new DefaultServerApiService();
+        serverService.setPort(8081);
+        BaseServer baseServer = new BaseServer(callback);
+        this.baseServer = baseServer;
+        ServerChannelInitializer serverInitializer = new ServerChannelInitializer(baseServer);
+        serverService.setChannelInitializer(serverInitializer);
+        serverService.start();
     }
 
-    public Server(String serverId, String serverName) {
-        this.id = serverId;
-        this.name = serverName;
-        initProxyChannels();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public URI getUri() {
-        return uri;
-    }
-
-    public void setUri(URI uri) {
-        this.uri = uri;
-    }
-
-    public ConcurrentHashMap<String, ProxyChannel> getProxyChannels() {
-        return proxyChannels;
-    }
-
-    public void setProxyChannels(ConcurrentHashMap<String, ProxyChannel> proxyChannels) {
-        this.proxyChannels = proxyChannels;
-    }
-
-    public void addProxyChannel(String proxyId, ProxyChannel proxyChannel) {
-        proxyChannels.put(proxyId, proxyChannel);
-    }
-
-    public void removeProxyChannel(String proxyId) {
-        proxyChannels.remove(proxyId);
-    }
-
-    public void initProxyChannels() {
-        proxyChannels = new ConcurrentHashMap<String, ProxyChannel>();
+    public void registerServer() {
+        ZookeeperService zookeeperService = new ZookeeperService();
+        zookeeperService.setPath("gproxy");
+        zookeeperService.setZkAddress("127.0.0.1:2181");
+        zookeeperService.setCertificate(new Certificate());
+        URI uri = new URI("127.0.0.1", 2181);
+        String serverAddress = "127.0.0.1:8081";
+        byte[] bytes = serverAddress.getBytes();
+        try {
+            zookeeperService.afterPropertiesSet();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!zookeeperService.exists("/server-01")) {
+            zookeeperService.registerNode("/server-01", uri, CreateMode.PERSISTENT, bytes, false);
+            System.out.println("register " + zookeeperService.exists("/server-01"));
+        }
     }
 
     public void sendToAll(String message) {
-        GproxyProtocol protocol = BaseEventConverter.converter(message, GproxyCommand.SEND_TO_ALL);
-        send(protocol, "");
+        baseServer.sendToAll(message);
     }
 
-    public void sendToClient(String message, String clientId, String proxyId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByClientId(message, clientId, GproxyCommand.SEND_TO_CLIENT);
-        send(protocol, proxyId);
+    public void sendToClient(String message, String clientId) {
+        String proxyId = callback.getProxyId();
+        baseServer.sendToClient(message, clientId, proxyId);
     }
 
     public void sendToUser(String message, String userId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByUserId(message, userId, GproxyCommand.SEND_TO_USER);
-        send(protocol, "");
+        baseServer.sendToUser(message, userId);
     }
 
     public void sendToGroup(String message, String groupId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByGroupId(message, groupId, GproxyCommand.SEND_TO_GROUP);
-        send(protocol, "");
+        baseServer.sendToGroup(message, groupId);
     }
 
-    public void bindUid(String clientId, String userId, String proxyId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByUserId("", clientId, userId, GproxyCommand.BIND_UID);
-        send(protocol, proxyId);
+    public void bindUid(String clientId, String userId) {
+        String proxyId = callback.getProxyId();
+        baseServer.bindUid(clientId, userId, proxyId);
     }
 
-    public void unBindUid(String clientId, String userId, String proxyId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByUserId("", clientId, userId, GproxyCommand.UN_BIND_UID);
-        send(protocol, proxyId);
+
+    public void unBindUid(String clientId, String userId) {
+        String proxyId = callback.getProxyId();
+        baseServer.unBindUid(clientId, userId, proxyId);
     }
 
-    public void joinGroup(String clientId, String groupId, String proxyId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByGroupId("", clientId, groupId, GproxyCommand.JOIN_GROUP);
-        send(protocol, proxyId);
+
+    public void joinGroup(String clientId, String groupId) {
+        String proxyId = callback.getProxyId();
+        baseServer.joinGroup(clientId, groupId, proxyId);
     }
 
-    public void leaveGroup(String clientId, String groupId, String proxyId) {
-        GproxyProtocol protocol = BaseEventConverter.converterByGroupId("", clientId, groupId, GproxyCommand.LEAVE_GROUP);
-        send(protocol, proxyId);
+    public void leaveGroup(String clientId, String groupId) {
+        String proxyId = callback.getProxyId();
+        baseServer.leaveGroup(clientId, groupId, proxyId);
     }
 
-    public void send(GproxyProtocol protocol, String proxyId) {
-        if (!StringUtils.isBlank(proxyId)) {
-            if (proxyChannels.containsKey(proxyId)) {
-                ChannelManager manager = proxyChannels.get(proxyId).getManager();
-                if (manager.isAvailable()) {
-                    manager.getChannel().writeAndFlush(protocol);
-                }
-            }
-        }else {
-            Iterator iterator = proxyChannels.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                ChannelManager manager = ((ProxyChannel) entry.getValue()).getManager();
-                if (manager.isAvailable()) {
-                    manager.getChannel().writeAndFlush(protocol);
-                }
-            }
-        }
-
-    }
 }

@@ -19,11 +19,11 @@ public class ProxyApplication {
     }
 
     public static void startProxy() {
-        DefaultServerApiService serverProxy = new DefaultServerApiService();
-        serverProxy.setPort(8080);
+        DefaultServerApiService proxyService = new DefaultServerApiService();
+        proxyService.setPort(8080);
         Proxy proxy = new Proxy();
         ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer(proxy);
-        serverProxy.setChannelInitializer(proxyInitializer);
+        proxyService.setChannelInitializer(proxyInitializer);
         DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
         ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer(proxy);
         clientApiService.setChannelInitializer(forwardInitializer);
@@ -46,7 +46,7 @@ public class ProxyApplication {
         if (!StringUtils.isBlank(address) && uri.parseAddress(address)) {
             proxy.addServerAddress(serverId, uri);
         }
-        serverProxy.start();
+        proxyService.start();
     }
 
     public static void registerProxy() {

@@ -1,27 +1,20 @@
 package com.waterfeeds.gproxy.server.handler;
 
 import com.waterfeeds.gproxy.network.base.BaseChannelInitializer;
-import com.waterfeeds.gproxy.protocol.tcp.TcpDecoder;
-import com.waterfeeds.gproxy.protocol.tcp.TcpEncoder;
-import com.waterfeeds.gproxy.server.Server;
-import com.waterfeeds.gproxy.user.DefaultEventHandler;
+import com.waterfeeds.gproxy.server.BaseServer;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.internal.logging.InternalLogLevel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
-    private Server server;
+    private BaseServer baseServer;
     private List<ChannelInboundHandlerAdapter> handlers = new ArrayList<ChannelInboundHandlerAdapter>();
 
-    public ServerChannelInitializer(Server server, ChannelInboundHandlerAdapter... handlers) {
-        this.server = server;
+    public ServerChannelInitializer(BaseServer baseServer, ChannelInboundHandlerAdapter... handlers) {
+        this.baseServer = baseServer;
         for (ChannelInboundHandlerAdapter handler: handlers) {
             this.handlers.add(handler);
         }
@@ -30,7 +23,6 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ch = BaseChannelInitializer.baseInit(ch);
-        //ch.pipeline().addLast(new EventHandler());
-        ch.pipeline().addLast(new ServerHandler(server, new DefaultEventHandler()));
+        ch.pipeline().addLast(new ServerHandler(baseServer));
     }
 }

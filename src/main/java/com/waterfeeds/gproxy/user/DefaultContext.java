@@ -1,8 +1,8 @@
 package com.waterfeeds.gproxy.user;
 
-import com.waterfeeds.gproxy.user.base.AbstractEventContext;
+import com.waterfeeds.gproxy.user.base.AbstractContext;
 
-public class DefaultEventContext implements AbstractEventContext {
+public class DefaultContext implements AbstractContext {
     @Override
     public String generateUserId() {
         return "user";

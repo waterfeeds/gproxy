@@ -35,28 +35,51 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
         GproxyProtocol protocol = (GproxyProtocol) msg;
         String content = protocol.getBody().getContent();
         String message = "";
+        String clientId = "";
+        String userId = "";
+        String groupId = "";
         int cmd = protocol.getHeader().getCmd();
         switch (cmd) {
             case GproxyCommand.SEND_TO_ALL:
                 proxy.sendToAll(protocol);
                 break;
             case GproxyCommand.SEND_TO_CLIENT:
-                String clientId = JsonBuf.getClientId(content);
+                clientId = JsonBuf.getClientId(content);
                 message = JsonBuf.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToClient(protocol, clientId);
                 break;
             case GproxyCommand.SEND_TO_USER:
-                String userId = JsonBuf.getUserId(content);
+                userId = JsonBuf.getUserId(content);
                 message = JsonBuf.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToUser(protocol, userId);
                 break;
             case GproxyCommand.SEND_TO_GROUP:
-                String groupId = JsonBuf.getGroupId(content);
+                groupId = JsonBuf.getGroupId(content);
                 message = JsonBuf.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToGroup(protocol, groupId);
+                break;
+            case GproxyCommand.BIND_UID:
+                clientId = JsonBuf.getClientId(content);
+                userId = JsonBuf.getUserId(content);
+                proxy.bindUid(clientId, userId);
+                break;
+            case GproxyCommand.UN_BIND_UID:
+                clientId = JsonBuf.getClientId(content);
+                userId = JsonBuf.getUserId(content);
+                proxy.unBindUid(clientId, userId);
+                break;
+            case GproxyCommand.JOIN_GROUP:
+                clientId = JsonBuf.getClientId(content);
+                groupId = JsonBuf.getGroupId(content);
+                proxy.joinGroup(clientId, groupId);
+                break;
+            case GproxyCommand.LEAVE_GROUP:
+                clientId = JsonBuf.getClientId(content);
+                groupId = JsonBuf.getGroupId(content);
+                proxy.leaveGroup(clientId, groupId);
                 break;
             case GproxyCommand.GET_CLIENT_COUNT:
                 break;
@@ -64,14 +87,7 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
                 break;
             case GproxyCommand.GET_GROUP_COUNT:
                 break;
-            case GproxyCommand.BIND_UID:
-
-                break;
-            case GproxyCommand.UN_BIND_UID:
-                break;
-            case GproxyCommand.JOIN_GROUP:
-                break;
-            case GproxyCommand.LEAVE_GROUP:
+            default:
                 break;
         }
     }

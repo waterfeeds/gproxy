@@ -44,6 +44,7 @@ public abstract class AbstractProxy {
     public void sendToGroup(GproxyProtocol protocol, String groupId) {
         if (groupChannels.containsKey(groupId)) {
             HashMap<String, ClientChannel> map = groupChannels.get(groupId);
+
             sendAll(map, protocol);
         }
     }
@@ -112,16 +113,23 @@ public abstract class AbstractProxy {
     }
 
     public void bindUid(String clientId, String userId) {
-        if (clientChannels.containsKey(clientId) && userChannels.containsKey(userId)) {
-            HashMap<String, ClientChannel> map = userChannels.get(userId);
+        if (clientChannels.containsKey(clientId)) {
+            HashMap<String, ClientChannel> map;
             ClientChannel clientChannel = clientChannels.get(clientId);
-            map.put(clientId, clientChannel);
-            userChannels.put(userId, map);
+            if (userChannels.containsKey(userId)) {
+                map = userChannels.get(userId);
+                map.put(clientId, clientChannel);
+                userChannels.put(userId, map);
+            } else {
+                map = new HashMap<String, ClientChannel>();
+                map.put(clientId, clientChannel);
+                userChannels.put(userId, map);
+            }
         }
     }
 
     public void unBindUid(String clientId, String userId) {
-        if (clientChannels.containsKey(clientId) && userChannels.containsKey(userId)) {
+        if (clientChannels.containsKey(clientId)) {
             HashMap<String, ClientChannel> map = userChannels.get(userId);
             map.remove(clientId);
             userChannels.put(userId, map);
@@ -129,9 +137,13 @@ public abstract class AbstractProxy {
     }
 
     public void joinGroup(String clientId, String groupId) {
-        if (groupChannels.containsKey(groupId) && clientChannels.containsKey(clientId)) {
+        if (clientChannels.containsKey(clientId)) {
+            HashMap<String, ClientChannel> map;
             ClientChannel clientChannel = clientChannels.get(clientId);
-            HashMap<String, ClientChannel> map = groupChannels.get(groupId);
+            map = groupChannels.get(groupId);
+            if (map == null) {
+                map = new HashMap<String, ClientChannel>();
+            }
             map.put(clientId, clientChannel);
             groupChannels.put(groupId, map);
         }
