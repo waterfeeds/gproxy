@@ -17,9 +17,9 @@ public class Server {
         this.callback.setServer(this);
     }
 
-    public void startServer() {
+    public void startServer(int port) {
         DefaultServerApiService serverService = new DefaultServerApiService();
-        serverService.setPort(8081);
+        serverService.setPort(port);
         BaseServer baseServer = new BaseServer(callback);
         this.baseServer = baseServer;
         ServerChannelInitializer serverInitializer = new ServerChannelInitializer(baseServer);
@@ -27,22 +27,23 @@ public class Server {
         serverService.start();
     }
 
-    public void registerServer() {
+    public void registerServer(String zkAddress, String zkSpace, String zkNodeName, String serverAddress) {
         ZookeeperService zookeeperService = new ZookeeperService();
-        zookeeperService.setPath("gproxy");
-        zookeeperService.setZkAddress("127.0.0.1:2181");
+        zookeeperService.setPath(zkSpace);
+        zookeeperService.setZkAddress(zkAddress);
         zookeeperService.setCertificate(new Certificate());
-        URI uri = new URI("127.0.0.1", 2181);
-        String serverAddress = "127.0.0.1:8081";
+        URI uri = new URI();
+        uri.parseAddress(zkAddress);
+        serverAddress = "127.0.0.1:8081";
         byte[] bytes = serverAddress.getBytes();
         try {
             zookeeperService.afterPropertiesSet();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (!zookeeperService.exists("/server-01")) {
-            zookeeperService.registerNode("/server-01", uri, CreateMode.PERSISTENT, bytes, false);
-            System.out.println("register " + zookeeperService.exists("/server-01"));
+        if (!zookeeperService.exists(zkNodeName)) {
+            zookeeperService.registerNode(zkNodeName, uri, CreateMode.PERSISTENT, bytes, false);
+            System.out.println("register " + zookeeperService.exists(zkNodeName));
         }
     }
 
