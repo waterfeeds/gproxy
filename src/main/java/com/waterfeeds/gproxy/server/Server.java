@@ -42,21 +42,17 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String spaceName = Const.ZOOKEEPER_NAMESPACE_SERVERS;
-        //zookeeperService.removeNode(spaceName, true);
-        if (!zookeeperService.exists(spaceName)) {
-            zookeeperService.registerNode(spaceName, uri, CreateMode.PERSISTENT, "servers".getBytes(), false);
+        String nameSpace = Const.ZOOKEEPER_NAMESPACE_SERVERS;
+        //zookeeperService.removeNode(nameSpace, true);
+        if (!zookeeperService.exists(nameSpace)) {
+            zookeeperService.registerNode(nameSpace, uri, CreateMode.PERSISTENT, "servers".getBytes(), false);
+            System.out.println(zookeeperService.getData(nameSpace));
         }
-        serverName = spaceName + serverName;
+        serverName = nameSpace + serverName;
         if (!zookeeperService.exists(serverName)) {
-            zookeeperService.registerNode(serverName, uri, CreateMode.PERSISTENT, bytes, false);
+            zookeeperService.registerNode(serverName, uri, CreateMode.EPHEMERAL, bytes, false);
         }
-        if (zookeeperService.exists(spaceName)) {
-            RemoteAddress[] addresses = zookeeperService.getChildNodes(spaceName);
-            for (RemoteAddress address: addresses) {
-                //System.out.println(address.getNodeName());
-            }
-        }
+
     }
 
     public void sendToAll(String message) {

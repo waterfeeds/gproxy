@@ -6,24 +6,28 @@ import com.waterfeeds.gproxy.network.DefaultClientApiService;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
 import com.waterfeeds.gproxy.proxy.handler.ForwardChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyChannelInitializer;
+import com.waterfeeds.gproxy.proxy.handler.ProxyNodeEventHandler;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
 import com.waterfeeds.gproxy.zookeeper.RemoteAddress;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
+import com.waterfeeds.gproxy.zookeeper.base.NodeEventHandler;
 import org.apache.zookeeper.CreateMode;
 
 public class ProxyApplication2 {
     public static void main(String[] args) {
-        registerProxy();
-        startProxy();
+        int port = 8079;
+        String zkAddress = "127.0.0.1:2181";
+        String space = "gproxy";
+        startProxy(port, zkAddress, space);
     }
 
-    public static void startProxy() {
+    public static void startProxy(int port, String zkAddress, String space) {
         DefaultServerApiService proxyService = new DefaultServerApiService();
-        proxyService.setPort(8079);
+        proxyService.setPort(port);
         Proxy proxy = new Proxy();
         ProxyChannelInitializer proxyInitializer = new ProxyChannelInitializer(proxy);
         proxyService.setChannelInitializer(proxyInitializer);
-        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
+        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(2);
         ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer(proxy);
         clientApiService.setChannelInitializer(forwardInitializer);
         proxy.setClientApiService(clientApiService);
@@ -31,40 +35,16 @@ public class ProxyApplication2 {
         if (!status)
             return;
         ZookeeperService zookeeperService = new ZookeeperService();
-        zookeeperService.setPath("gproxy");
-        zookeeperService.setZkAddress("127.0.0.1:2181");
+        zookeeperService.setPath(space);
+        zookeeperService.setZkAddress(zkAddress);
         zookeeperService.setCertificate(new Certificate());
+        NodeEventHandler eventHandler = new ProxyNodeEventHandler(proxy);
         try {
-            zookeeperService.afterPropertiesSet();
+            zookeeperService.afterPropertiesSet(eventHandler);
         } catch (Exception e) {
             e.printStackTrace();
         }
         String nameSpace = Const.ZOOKEEPER_NAMESPACE_SERVERS;
-        if (zookeeperService.exists(nameSpace)) {
-            RemoteAddress[] addresses = zookeeperService.getChildNodes(nameSpace);
-            for (RemoteAddress address: addresses) {
-                proxy.addServerAddress(address.getNodeName(), address.getUri());
-            }
-        }
-    }
-
-    public static void registerProxy() {
-        ZookeeperService zookeeperService = new ZookeeperService();
-        zookeeperService.setPath("gproxy");
-        zookeeperService.setZkAddress("127.0.0.1:2181");
-        zookeeperService.setCertificate(new Certificate());
-        URI uri = new URI("127.0.0.1", 2181);
-        String proxyAddress = "127.0.0.1:8079";
-        byte[] bytes = proxyAddress.getBytes();
-        try {
-            zookeeperService.afterPropertiesSet();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (zookeeperService.exists("/proxy-01")) {
-            zookeeperService.registerNode("/proxy-01", uri, CreateMode.PERSISTENT, bytes, false);
-            System.out.println("register " + zookeeperService.exists("/proxy-01"));
-        }
-
+        zookeeperService.setPathChildrenListener(nameSpace);
     }
 }

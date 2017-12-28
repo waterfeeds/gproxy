@@ -72,14 +72,18 @@ public class Proxy extends AbstractProxy {
         serverChannels.remove(serverId);
     }
 
-    public void addServerAddress(String serverId, URI uri) {
-        serverAddresses.put(serverId, uri);
-        tryConnectServer(serverId, uri);
+    public void addServerAddress(String serverName, URI uri) {
+        System.out.println(serverName);
+        serverAddresses.put(serverName, uri);
+        boolean status = tryConnectServer(uri);
+        if (!status) {
+            serverAddresses.remove(serverName);
+        }
     }
 
-    public void removeServerAddress(String serverId, URI uri) {
-        serverAddresses.remove(serverId);
-        removeServerChannel(serverId);
+    public void removeServerAddress(String serverName, URI uri) {
+        serverAddresses.remove(serverName);
+        removeServerChannel(serverName);
     }
 
     public void initServerChannels() {
@@ -128,8 +132,13 @@ public class Proxy extends AbstractProxy {
         }
     }
 
-    public void tryConnectServer(String serverId, URI uri) {
+    public boolean tryConnectServer(URI uri) {
         ChannelManager manager = clientApiService.doConnect(uri);
+        if (manager != null && manager.isAvailable()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void tryConnectServers() {
@@ -141,11 +150,7 @@ public class Proxy extends AbstractProxy {
             if (serverChannels.containsKey(serverId)) {
                 continue;
             }
-            ChannelManager manager = clientApiService.doConnect(uri);
-            if (manager.isAvailable()) {
-                ServerChannel serverChannel = new ServerChannel(manager);
-                addServerChannel(serverId, serverChannel);
-            }
+            tryConnectServer(uri);
         }
     }
 }

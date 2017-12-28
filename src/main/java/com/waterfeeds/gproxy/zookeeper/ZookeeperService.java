@@ -4,6 +4,7 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.zookeeper.base.BaseZookeeperClient;
 import com.waterfeeds.gproxy.zookeeper.base.BaseZookeeperService;
+import com.waterfeeds.gproxy.zookeeper.base.NodeEventHandler;
 import io.netty.util.internal.ConcurrentSet;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.GetChildrenBuilder;
@@ -66,7 +67,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
     }
 
     public void registerNode(String path, URI uri, CreateMode mode, byte[] bytes, boolean is) {
-        path = buildPath(path);
+        path = path.startsWith(DEV_S) ? path : DEV_S + path;
         try {
             if (is) {
                 curatorFramework.create().creatingParentsIfNeeded().withMode(mode).forPath(path, bytes);
@@ -135,6 +136,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
     }
 
     public String getData(String path) {
+        path = path.startsWith(DEV_S) ? path : DEV_S + path;
         if (exists(path)) {
             byte[] forPath;
             try {
@@ -159,7 +161,8 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
                 ChildData data = event.getData();
                 if (data != null) {
-                    URI uri = null;
+                    String address = new String(data.getData());
+                    URI uri = new URI(address);
                     String path = data.getPath();
                     switch (event.getType()) {
                         case CHILD_ADDED:
@@ -202,7 +205,6 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
                 ChildData data = event.getData();
                 if (data != null) {
                     URI uri = null;
-
                     String path = data.getPath();
                     switch (event.getType()) {
                         case NODE_ADDED:
@@ -229,14 +231,6 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         treeCache.start();
     }
 
-    public interface NodeEventHandler {
-        void addNode(String serviceName, URI uri);
-
-        void removeNode(String address);
-
-        void updateNode(String serviceName, URI uri);
-    }
-
     public void initRegister(ConcurrentSet<String> registerServiceNames) throws Exception {
         if (CollectionUtils.isNotEmpty(registerServiceNames)) {
             InetAddress localHost = Inet4Address.getLocalHost();
@@ -244,7 +238,6 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             for (String serviceName : registerServiceNames) {
                 URI uri = new URI(null, hostAddress, this.port, null);
                 registerNode(serviceName, uri, CreateMode.EPHEMERAL_SEQUENTIAL, new byte[100], true);
-                System.out.println("success register server {}: {}");
             }
         }
     }
@@ -278,23 +271,22 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         this.eventHandler = new NodeEventHandler() {
             @Override
             public void addNode(String serviceName, URI uri) {
-                String matchPath = matchPath(path);
-                String finalPath = path.substring(path.lastIndexOf('/') + 1, path.length());
-                if (uri != null) {
-
-                }
             }
 
             @Override
             public void removeNode(String address) {
-
             }
 
             @Override
             public void updateNode(String serviceName, URI uri) {
-
             }
         };
+    }
+
+    public void afterPropertiesSet(NodeEventHandler eventHandler) {
+        this.baseZookeeperClient = new ZookeeperClient();
+        this.curatorFramework = baseZookeeperClient.init(path, zkAddress, certificate);
+        this.eventHandler = eventHandler;
     }
 
     private String buildPath(String path) {

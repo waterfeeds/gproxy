@@ -63,8 +63,8 @@ public class DefaultClientApiService extends ClientApiService {
                 return new ChannelManager(true, future, new URI(host, port));
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            log.error(this.getClass().getName(), e);
+            System.err.println("服务器连接失败");
+            //log.error("服务器连接失败", e);
         }
         return null;
     }

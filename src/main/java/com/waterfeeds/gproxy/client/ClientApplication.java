@@ -12,14 +12,15 @@ import java.util.Scanner;
 
 public class ClientApplication {
     public static void main(String[] args) {
-        startClient();
+        String proxyAddress = "127.0.0.1:8080";
+        startClient(proxyAddress);
     }
 
-    public static void startClient() {
-        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
+    public static void startClient(String proxyAddress) {
+        DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(2);
         clientApiService.setChannelInitializer(new ClientChannelInitializer());
         clientApiService.start();
-        URI uri = new URI("127.0.0.1", 8080);
+        URI uri = new URI(proxyAddress);
         ChannelManager manager = clientApiService.doConnect(uri);
         GproxyBody body = new GproxyBody("login");
         GproxyHeader header = new GproxyHeader(GproxyCommand.CLIENT_EVENT, 0, body.getContentLen());

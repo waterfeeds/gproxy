@@ -119,7 +119,6 @@ public class BaseServer {
 
     public void send(GproxyProtocol protocol, String proxyId) {
         if (!StringUtils.isBlank(proxyId)) {
-            System.out.println(proxyChannels);
             if (proxyChannels.containsKey(proxyId)) {
                 ProxyChannel proxyChannel = proxyChannels.get(proxyId);
                 if (proxyChannel.isAvailable()) {
