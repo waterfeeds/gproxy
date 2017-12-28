@@ -9,7 +9,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 public class TcpEncoder extends MessageToByteEncoder<GproxyProtocol> {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, GproxyProtocol gproxyProtocol, ByteBuf byteBuf) throws Exception {
-        byte[] bytes = GproxyCoder.encode(gproxyProtocol);
+        byte[] bytes = GproxyCoder.getInstance().encode(gproxyProtocol);
         byteBuf.writeBytes(bytes);
     }
 }

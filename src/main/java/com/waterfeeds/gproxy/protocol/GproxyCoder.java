@@ -6,8 +6,21 @@ import com.waterfeeds.gproxy.protocol.exception.ProtocolException;
 import com.waterfeeds.gproxy.util.ByteUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
-public class GproxyCoder {
-    public static byte[] encode(GproxyProtocol protocol) {
+public class GproxyCoder implements AbstractGproxyCoder {
+    private GproxyCoder() {
+
+    }
+
+    private static class GproxyCoderHolder {
+        private static GproxyCoder instance = new GproxyCoder();
+    }
+
+    public static GproxyCoder getInstance() {
+        return GproxyCoderHolder.instance;
+    }
+
+    @Override
+    public byte[] encode(GproxyProtocol protocol) {
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         byte[] identifier = ByteUtil.int2Byte(protocol.getIdentifier(), 1);
@@ -21,7 +34,8 @@ public class GproxyCoder {
         return data;
     }
 
-    public static GproxyProtocol decode(byte[] bytes) {
+    @Override
+    public GproxyProtocol decode(byte[] bytes) {
         int cmd = ByteUtil.byte2Int(ArrayUtils.subarray(bytes, 0, 1));
         int safe = ByteUtil.byte2Int(ArrayUtils.subarray(bytes, 1, 2));
         int contentLen = ByteUtil.byte2Int(ArrayUtils.subarray(bytes, 2, 4));

@@ -49,7 +49,7 @@ public class TcpDecoder extends ByteToMessageDecoder {
             }
             byte[] bytes = new byte[length];
             byteBuf.readBytes(bytes);
-            GproxyProtocol protocol = GproxyCoder.decode(bytes);
+            GproxyProtocol protocol = GproxyCoder.getInstance().decode(bytes);
             list.add(protocol);
         }
     }
