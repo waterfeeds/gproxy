@@ -19,9 +19,9 @@ public class ClientApplication2 {
         DefaultClientApiService clientApiService = DefaultClientApiService.newInstance(4);
         clientApiService.setChannelInitializer(new ClientChannelInitializer());
         clientApiService.start();
-        URI uri = new URI("127.0.0.1", 8080);
+        URI uri = new URI("127.0.0.1", 8079);
         ChannelManager manager = clientApiService.doConnect(uri);
-        GproxyBody body = new GproxyBody("login_1");
+        GproxyBody body = new GproxyBody("login_2");
         GproxyHeader header = new GproxyHeader(GproxyCommand.CLIENT_EVENT, 0, body.getContentLen());
         GproxyProtocol protocol = new GproxyProtocol(header, body);
         Scanner scanner = new Scanner(System.in);
