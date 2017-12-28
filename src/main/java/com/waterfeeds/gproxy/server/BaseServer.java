@@ -2,7 +2,7 @@ package com.waterfeeds.gproxy.server;
 
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.ChannelManager;
-import com.waterfeeds.gproxy.protocol.GproxyCommand;
+import com.waterfeeds.gproxy.protocol.base.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.protocol.base.BaseEventConverter;
 import com.waterfeeds.gproxy.server.base.Callback;

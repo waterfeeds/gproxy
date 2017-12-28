@@ -4,7 +4,7 @@ import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.network.DefaultClientApiService;
 import com.waterfeeds.gproxy.protocol.GproxyBody;
-import com.waterfeeds.gproxy.protocol.GproxyCommand;
+import com.waterfeeds.gproxy.protocol.base.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 

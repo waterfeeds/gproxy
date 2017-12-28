@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.protocol;
+package com.waterfeeds.gproxy.protocol.base;
 
 public class GproxyCommand {
     public static final int SEND_TO_ALL = 1;

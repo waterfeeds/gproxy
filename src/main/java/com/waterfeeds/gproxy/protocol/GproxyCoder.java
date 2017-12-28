@@ -1,6 +1,7 @@
 package com.waterfeeds.gproxy.protocol;
 
 import com.waterfeeds.gproxy.protocol.base.AbstractGproxyCoder;
+import com.waterfeeds.gproxy.protocol.base.GproxyErrorCode;
 import com.waterfeeds.gproxy.protocol.exception.ProtocolException;
 import com.waterfeeds.gproxy.util.ByteUtil;
 import org.apache.commons.lang3.ArrayUtils;
@@ -30,7 +31,7 @@ public class GproxyCoder implements AbstractGproxyCoder {
         String content = "";
         if (contentLen > 0) {
             if ((safe == 0 && bytes.length != contentLen + 4) || (safe == 1 && bytes.length != contentLen + 20)) {
-                throw new ProtocolException(10001, "协议格式不正确");
+                throw new ProtocolException(GproxyErrorCode.BAD_PROTOCOL_CODE, GproxyErrorCode.BAD_PROTOCOL_MESSAGE);
             }
             if (safe == 0) {
                 content = new String(ArrayUtils.subarray(bytes, 4, bytes.length));
