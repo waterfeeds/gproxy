@@ -3,7 +3,6 @@ package com.waterfeeds.gproxy.server.handler;
 import com.waterfeeds.gproxy.network.ChannelContextFactory;
 import com.waterfeeds.gproxy.protocol.base.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
-import com.waterfeeds.gproxy.protocol.base.GproxySafe;
 import com.waterfeeds.gproxy.server.BaseServer;
 import com.waterfeeds.gproxy.server.base.Callback;
 import com.waterfeeds.gproxy.server.channel.ProxyChannel;
@@ -33,10 +32,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         GproxyProtocol protocol = (GproxyProtocol) msg;
-        if (!GproxySafe.isProtocolSafe(protocol)) {
+        if (!protocol.isSafe())
             return;
-        }
-
         String proxyId = ChannelContextFactory.getLongId(ctx);
         int cmd = protocol.getHeader().getCmd();
         if (cmd != GproxyCommand.CLIENT_EVENT)

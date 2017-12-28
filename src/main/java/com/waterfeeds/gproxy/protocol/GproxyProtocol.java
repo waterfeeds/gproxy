@@ -38,4 +38,11 @@ public class GproxyProtocol {
         else
             return header.getContentLen() + 20;
     }
+
+    public boolean isSafe() {
+        if (header.getSafe() == 1 && !body.getSafeSign().equals(Const.SAFE_SIGN)) {
+            return false;
+        }
+        return true;
+    }
 }
