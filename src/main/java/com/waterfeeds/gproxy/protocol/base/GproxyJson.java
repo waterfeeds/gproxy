@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.waterfeeds.gproxy.message.Const;
 import org.apache.commons.lang3.StringUtils;
 
-public class JsonBuf {
+public class GproxyJson {
     public static String getClientId(String content) {
         JSONObject object = JSONObject.parseObject(content);
         return (String) object.get(Const.CLIENT_ID);

@@ -3,7 +3,7 @@ package com.waterfeeds.gproxy.proxy.handler;
 import com.waterfeeds.gproxy.network.ChannelContextFactory;
 import com.waterfeeds.gproxy.protocol.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
-import com.waterfeeds.gproxy.protocol.base.JsonBuf;
+import com.waterfeeds.gproxy.protocol.base.GproxyJson;
 import com.waterfeeds.gproxy.proxy.Proxy;
 import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
 import com.waterfeeds.gproxy.protocol.base.BaseEventConverter;
@@ -44,41 +44,41 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
                 proxy.sendToAll(protocol);
                 break;
             case GproxyCommand.SEND_TO_CLIENT:
-                clientId = JsonBuf.getClientId(content);
-                message = JsonBuf.getMessage(content);
+                clientId = GproxyJson.getClientId(content);
+                message = GproxyJson.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToClient(protocol, clientId);
                 break;
             case GproxyCommand.SEND_TO_USER:
-                userId = JsonBuf.getUserId(content);
-                message = JsonBuf.getMessage(content);
+                userId = GproxyJson.getUserId(content);
+                message = GproxyJson.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToUser(protocol, userId);
                 break;
             case GproxyCommand.SEND_TO_GROUP:
-                groupId = JsonBuf.getGroupId(content);
-                message = JsonBuf.getMessage(content);
+                groupId = GproxyJson.getGroupId(content);
+                message = GproxyJson.getMessage(content);
                 protocol = BaseEventConverter.converter(protocol, message);
                 proxy.sendToGroup(protocol, groupId);
                 break;
             case GproxyCommand.BIND_UID:
-                clientId = JsonBuf.getClientId(content);
-                userId = JsonBuf.getUserId(content);
+                clientId = GproxyJson.getClientId(content);
+                userId = GproxyJson.getUserId(content);
                 proxy.bindUid(clientId, userId);
                 break;
             case GproxyCommand.UN_BIND_UID:
-                clientId = JsonBuf.getClientId(content);
-                userId = JsonBuf.getUserId(content);
+                clientId = GproxyJson.getClientId(content);
+                userId = GproxyJson.getUserId(content);
                 proxy.unBindUid(clientId, userId);
                 break;
             case GproxyCommand.JOIN_GROUP:
-                clientId = JsonBuf.getClientId(content);
-                groupId = JsonBuf.getGroupId(content);
+                clientId = GproxyJson.getClientId(content);
+                groupId = GproxyJson.getGroupId(content);
                 proxy.joinGroup(clientId, groupId);
                 break;
             case GproxyCommand.LEAVE_GROUP:
-                clientId = JsonBuf.getClientId(content);
-                groupId = JsonBuf.getGroupId(content);
+                clientId = GproxyJson.getClientId(content);
+                groupId = GproxyJson.getGroupId(content);
                 proxy.leaveGroup(clientId, groupId);
                 break;
             case GproxyCommand.GET_CLIENT_COUNT:

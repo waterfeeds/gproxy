@@ -24,7 +24,7 @@ public class BaseEventConverter {
     public static GproxyProtocol converterByClientId(GproxyProtocol protocol, String message, String clientId) {
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
-        String content = JsonBuf.getJsonByClientId(clientId, message);
+        String content = GproxyJson.getJsonByClientId(clientId, message);
         body.setContent(content);
         header.setContentLen(body.getContentLen());
         protocol.setHeader(header);
@@ -33,7 +33,7 @@ public class BaseEventConverter {
     }
 
     public static GproxyProtocol converterByClientId(String message, String clientId, int cmd) {
-        String content = JsonBuf.getJsonByClientId(clientId, message);
+        String content = GproxyJson.getJsonByClientId(clientId, message);
         GproxyBody body = new GproxyBody(content);
         GproxyHeader header = new GproxyHeader(cmd, body.getContentLen());
         return new GproxyProtocol(header, body);
@@ -42,7 +42,7 @@ public class BaseEventConverter {
     public static GproxyProtocol converterByUserId(GproxyProtocol protocol, String message, String userId) {
         GproxyBody body = protocol.getBody();
         GproxyHeader header = protocol.getHeader();
-        String content = JsonBuf.getJsonByUserId(userId, message);
+        String content = GproxyJson.getJsonByUserId(userId, message);
         body.setContent(content);
         header.setContentLen(body.getContentLen());
         protocol.setBody(body);
@@ -53,7 +53,7 @@ public class BaseEventConverter {
     public static GproxyProtocol converterByUserId(GproxyProtocol protocol, String message, String clientId, String userId) {
         GproxyBody body = protocol.getBody();
         GproxyHeader header = protocol.getHeader();
-        String content = JsonBuf.getJsonByUserId(clientId, userId, message);
+        String content = GproxyJson.getJsonByUserId(clientId, userId, message);
         body.setContent(content);
         header.setContentLen(body.getContentLen());
         protocol.setBody(body);
@@ -62,21 +62,21 @@ public class BaseEventConverter {
     }
 
     public static GproxyProtocol converterByUserId(String message, String userId, int cmd) {
-        String content = JsonBuf.getJsonByUserId(userId, message);
+        String content = GproxyJson.getJsonByUserId(userId, message);
         GproxyBody body = new GproxyBody(content);
         GproxyHeader header = new GproxyHeader(cmd, body.getContentLen());
         return new GproxyProtocol(header, body);
     }
 
     public static GproxyProtocol converterByUserId(String message, String clientId, String userId, int cmd) {
-        String content = JsonBuf.getJsonByUserId(clientId, userId, message);
+        String content = GproxyJson.getJsonByUserId(clientId, userId, message);
         GproxyBody body = new GproxyBody(content);
         GproxyHeader header = new GproxyHeader(cmd, body.getContentLen());
         return new GproxyProtocol(header, body);
     }
 
     public static GproxyProtocol converterByGroupId(GproxyProtocol protocol, String message, String groupId) {
-        String content = JsonBuf.getJsonByGroupId(groupId, message);
+        String content = GproxyJson.getJsonByGroupId(groupId, message);
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         body.setContent(content);
@@ -87,7 +87,7 @@ public class BaseEventConverter {
     }
 
     public static GproxyProtocol converterByGroupId(GproxyProtocol protocol, String message, String clientId, String groupId) {
-        String content = JsonBuf.getJsonByGroupId(clientId, groupId, message);
+        String content = GproxyJson.getJsonByGroupId(clientId, groupId, message);
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         body.setContent(content);
@@ -98,14 +98,14 @@ public class BaseEventConverter {
     }
 
     public static GproxyProtocol converterByGroupId(String message, String groupId, int cmd) {
-        String content = JsonBuf.getJsonByGroupId(groupId, message);
+        String content = GproxyJson.getJsonByGroupId(groupId, message);
         GproxyBody body = new GproxyBody(content);
         GproxyHeader header = new GproxyHeader(cmd, body.getContentLen());
         return new GproxyProtocol(header, body);
     }
 
     public static GproxyProtocol converterByGroupId(String message, String clientId, String groupId, int cmd) {
-        String content = JsonBuf.getJsonByGroupId(clientId, groupId, message);
+        String content = GproxyJson.getJsonByGroupId(clientId, groupId, message);
         GproxyBody body = new GproxyBody(content);
         GproxyHeader header = new GproxyHeader(cmd, body.getContentLen());
         return new GproxyProtocol(header, body);

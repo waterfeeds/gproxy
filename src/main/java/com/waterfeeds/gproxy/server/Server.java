@@ -2,6 +2,7 @@ package com.waterfeeds.gproxy.server;
 
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
+import com.waterfeeds.gproxy.protocol.base.GproxyJson;
 import com.waterfeeds.gproxy.server.base.Callback;
 import com.waterfeeds.gproxy.server.handler.ServerChannelInitializer;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
@@ -84,6 +85,42 @@ public class Server {
     public void leaveGroup(String clientId, String groupId) {
         String proxyId = callback.getProxyId();
         baseServer.leaveGroup(clientId, groupId, proxyId);
+    }
+
+    public String getClientIdByBody(String bodyContent) {
+        return GproxyJson.getClientId(bodyContent);
+    }
+
+    public String getUserIdByBody(String bodyContent) {
+        return GproxyJson.getUserId(bodyContent);
+    }
+
+    public String getGroupIdByBody(String bodyContent) {
+        return GproxyJson.getGroupId(bodyContent);
+    }
+
+    public String getMessageByBody(String bodyContent) {
+        return GproxyJson.getMessage(bodyContent);
+    }
+
+    public String getBodyByClientId(String clientId, String message) {
+        return GproxyJson.getJsonByClientId(clientId, message);
+    }
+
+    public String getBodyByUserId(String userId, String message) {
+        return GproxyJson.getJsonByUserId(userId, message);
+    }
+
+    public String getBodyByUserId(String clientId, String userId, String message) {
+        return GproxyJson.getJsonByUserId(clientId, userId, message);
+    }
+
+    public String getBodyByGroupId(String groupId, String message) {
+        return GproxyJson.getJsonByGroupId(groupId, message);
+    }
+
+    public String getBodyByGroupId(String clientId, String groupId, String message) {
+        return GproxyJson.getJsonByGroupId(clientId, groupId, message);
     }
 
 }
