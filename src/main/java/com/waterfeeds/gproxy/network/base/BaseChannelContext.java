@@ -1,13 +1,14 @@
-package com.waterfeeds.gproxy.network;
+package com.waterfeeds.gproxy.network.base;
 
 import com.waterfeeds.gproxy.message.URI;
+import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.proxy.channel.ClientChannel;
 import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
 import com.waterfeeds.gproxy.server.channel.ProxyChannel;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 
-public class ChannelContextFactory {
+public class BaseChannelContext {
     public static String getShortId(ChannelHandlerContext ctx) {
         Channel channel = ctx.channel();
         return channel.id().asShortText();

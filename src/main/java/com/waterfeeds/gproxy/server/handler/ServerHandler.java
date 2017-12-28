@@ -1,6 +1,6 @@
 package com.waterfeeds.gproxy.server.handler;
 
-import com.waterfeeds.gproxy.network.ChannelContextFactory;
+import com.waterfeeds.gproxy.network.base.BaseChannelContext;
 import com.waterfeeds.gproxy.protocol.base.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 import com.waterfeeds.gproxy.server.BaseServer;
@@ -18,14 +18,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        String proxyId = ChannelContextFactory.getLongId(ctx);
-        ProxyChannel proxyChannel = ChannelContextFactory.getProxyChannel(ctx);
+        String proxyId = BaseChannelContext.getLongId(ctx);
+        ProxyChannel proxyChannel = BaseChannelContext.getProxyChannel(ctx);
         baseServer.addProxyChannel(proxyId, proxyChannel);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        String proxyId = ChannelContextFactory.getLongId(ctx);
+        String proxyId = BaseChannelContext.getLongId(ctx);
         baseServer.removeProxyChannel(proxyId);
     }
 
@@ -34,7 +34,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         GproxyProtocol protocol = (GproxyProtocol) msg;
         if (!protocol.isSafe())
             return;
-        String proxyId = ChannelContextFactory.getLongId(ctx);
+        String proxyId = BaseChannelContext.getLongId(ctx);
         int cmd = protocol.getHeader().getCmd();
         if (cmd != GproxyCommand.CLIENT_EVENT)
             return;

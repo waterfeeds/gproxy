@@ -3,6 +3,7 @@ package com.waterfeeds.gproxy.proxy.channel;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.session.Context;
 import com.waterfeeds.gproxy.session.Session;
+import io.netty.channel.Channel;
 
 public class ClientChannel {
     private ChannelManager manager;
@@ -35,5 +36,13 @@ public class ClientChannel {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public boolean isAvailable() {
+        return manager.isAvailable();
+    }
+
+    public Channel getChannel() {
+        return manager.getChannel();
     }
 }

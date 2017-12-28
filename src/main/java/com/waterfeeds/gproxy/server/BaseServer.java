@@ -120,18 +120,18 @@ public class BaseServer {
     public void send(GproxyProtocol protocol, String proxyId) {
         if (!StringUtils.isBlank(proxyId)) {
             if (proxyChannels.containsKey(proxyId)) {
-                ChannelManager manager = proxyChannels.get(proxyId).getManager();
-                if (manager.isAvailable()) {
-                    manager.getChannel().writeAndFlush(protocol);
+                ProxyChannel proxyChannel = proxyChannels.get(proxyId);
+                if (proxyChannel.isAvailable()) {
+                    proxyChannel.getChannel().writeAndFlush(protocol);
                 }
             }
         }else {
             Iterator iterator = proxyChannels.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry entry = (Map.Entry) iterator.next();
-                ChannelManager manager = ((ProxyChannel) entry.getValue()).getManager();
-                if (manager.isAvailable()) {
-                    manager.getChannel().writeAndFlush(protocol);
+                ProxyChannel proxyChannel = ((ProxyChannel) entry.getValue());
+                if (proxyChannel.isAvailable()) {
+                    proxyChannel.getChannel().writeAndFlush(protocol);
                 }
             }
         }

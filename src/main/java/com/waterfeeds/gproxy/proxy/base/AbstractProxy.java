@@ -17,9 +17,9 @@ public abstract class AbstractProxy {
         Iterator iterator = clientChannels.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            ChannelManager manager = ((ClientChannel) entry.getValue()).getManager();
-            if (manager.isAvailable()) {
-                manager.getChannel().writeAndFlush(protocol);
+            ClientChannel clientChannel = ((ClientChannel) entry.getValue());
+            if (clientChannel.isAvailable()) {
+                clientChannel.getChannel().writeAndFlush(protocol);
             }
         }
     }
@@ -27,9 +27,8 @@ public abstract class AbstractProxy {
     public void sendToClient(GproxyProtocol protocol, String clientId) {
         if (clientChannels.containsKey(clientId)) {
             ClientChannel clientChannel = clientChannels.get(clientId);
-            ChannelManager manager = clientChannel.getManager();
-            if (manager.isAvailable()) {
-                manager.getChannel().writeAndFlush(protocol);
+            if (clientChannel.isAvailable()) {
+                clientChannel.getChannel().writeAndFlush(protocol);
             }
         }
     }

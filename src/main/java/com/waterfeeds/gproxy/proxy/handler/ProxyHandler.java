@@ -1,6 +1,6 @@
 package com.waterfeeds.gproxy.proxy.handler;
 
-import com.waterfeeds.gproxy.network.ChannelContextFactory;
+import com.waterfeeds.gproxy.network.base.BaseChannelContext;
 import com.waterfeeds.gproxy.protocol.GproxyBody;
 import com.waterfeeds.gproxy.protocol.base.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyHeader;
@@ -21,14 +21,14 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        String clientId = ChannelContextFactory.getLongId(ctx);
-        ClientChannel clientChannel = ChannelContextFactory.getClientChannel(ctx);
+        String clientId = BaseChannelContext.getLongId(ctx);
+        ClientChannel clientChannel = BaseChannelContext.getClientChannel(ctx);
         proxy.addClientChannel(clientId, clientChannel);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        String clientId = ChannelContextFactory.getLongId(ctx);
+        String clientId = BaseChannelContext.getLongId(ctx);
         proxy.removeClientChannel(clientId);
         proxy.removeRouteChannel(clientId);
     }
@@ -38,7 +38,7 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         GproxyProtocol protocol = (GproxyProtocol) msg;
         if (!protocol.isSafe())
             return;
-        String clientId = ChannelContextFactory.getLongId(ctx);
+        String clientId = BaseChannelContext.getLongId(ctx);
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
         String content = body.getContent();
@@ -47,8 +47,8 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
             case GproxyCommand.CLIENT_EVENT:
                 protocol = BaseEventConverter.converterByClientId(protocol, content, clientId);
                 ServerChannel serverChannel = proxy.getRouteChannel(clientId);
-                if (serverChannel.getManager().isAvailable()) {
-                    serverChannel.getManager().getChannel().writeAndFlush(protocol);
+                if (serverChannel.isAvailable()) {
+                    serverChannel.getChannel().writeAndFlush(protocol);
                 }
                 break;
             default:
