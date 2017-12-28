@@ -10,6 +10,8 @@ public class Const {
 
     public static String SAFE_SIGN = "PvAu9PcgpVCzjBG4";
 
+    public static String ZOOKEEPER_NAMESPACE_SERVERS = "servers";
+
     public static String CLIENT_ID = "cid";
     public static String USER_ID = "uid";
     public static String GROUP_ID = "gid";

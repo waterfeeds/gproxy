@@ -6,6 +6,7 @@ import com.waterfeeds.gproxy.zookeeper.base.BaseZookeeperClient;
 import com.waterfeeds.gproxy.zookeeper.base.BaseZookeeperService;
 import io.netty.util.internal.ConcurrentSet;
 import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.api.GetChildrenBuilder;
 import org.apache.curator.framework.recipes.cache.*;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
@@ -23,7 +24,6 @@ import java.util.regex.Pattern;
 public class ZookeeperService implements BaseZookeeperService, InitializingBean, DisposableBean {
     protected static final Logger log = LoggerFactory.getLogger(ZookeeperService.class.getSimpleName());
     private String DEV_S = "/";
-    private String NODE_NAME = "node_";
     private int port;
     private String zkAddress;
     private Certificate certificate;
@@ -66,7 +66,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
     }
 
     public void registerNode(String path, URI uri, CreateMode mode, byte[] bytes, boolean is) {
-        //path = buildPath(path);
+        path = buildPath(path);
         try {
             if (is) {
                 curatorFramework.create().creatingParentsIfNeeded().withMode(mode).forPath(path, bytes);
@@ -103,6 +103,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             else
                 return true;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(this.getClass().getName() + "检查节点是否存在失败", e);
         }
         return false;
@@ -118,9 +119,10 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             for (String paths : forPath) {
                 String final_path = sb.append(path).append(DEV_S).append(paths).toString();
                 String data = this.getData(final_path);
-                if (data != null) {
-                    //RemoteAddress address = new RemoteAddress(paths, data);
-                    //addresses[num] = address;
+                URI uri = new URI();
+                if (data != null && uri.parseAddress(data)) {
+                    RemoteAddress address = new RemoteAddress(paths, uri);
+                    addresses[num] = address;
                     num++;
                 }
                 sb.delete(0, sb.length());
@@ -298,7 +300,6 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
     private String buildPath(String path) {
         path = path.startsWith(DEV_S) ? path : DEV_S + path;
         StringBuilder builder = new StringBuilder(path);
-        builder.append(DEV_S).append(NODE_NAME);
         return builder.toString();
     }
 

@@ -27,7 +27,7 @@ public class BaseChannelInitializer {
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                 GproxyProtocol protocol = (GproxyProtocol) msg;
-                System.out.println(protocol.getBody().getContent());
+                System.out.println(ctx.channel().remoteAddress() + " " + protocol.getBody().getContent());
                 ctx.fireChannelRead(msg);
             }
         });

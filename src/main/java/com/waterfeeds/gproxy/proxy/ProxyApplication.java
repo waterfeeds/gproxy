@@ -1,5 +1,6 @@
 package com.waterfeeds.gproxy.proxy;
 
+import com.waterfeeds.gproxy.message.Const;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.DefaultClientApiService;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
@@ -8,6 +9,7 @@ import com.waterfeeds.gproxy.proxy.handler.ForwardHandler;
 import com.waterfeeds.gproxy.proxy.handler.ProxyChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyHandler;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
+import com.waterfeeds.gproxy.zookeeper.RemoteAddress;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.zookeeper.CreateMode;
@@ -28,7 +30,9 @@ public class ProxyApplication {
         ForwardChannelInitializer forwardInitializer = new ForwardChannelInitializer(proxy);
         clientApiService.setChannelInitializer(forwardInitializer);
         proxy.setClientApiService(clientApiService);
-        URI uri = new URI();
+        boolean status = proxyService.start();
+        if (!status)
+            return;
         ZookeeperService zookeeperService = new ZookeeperService();
         zookeeperService.setPath("gproxy");
         zookeeperService.setZkAddress("127.0.0.1:2181");
@@ -38,15 +42,13 @@ public class ProxyApplication {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String serverId = "/server-01";
-        String address = "";
-        if (zookeeperService.exists(serverId)) {
-            address = zookeeperService.getData(serverId);
+        String nameSpace = Const.ZOOKEEPER_NAMESPACE_SERVERS;
+        if (zookeeperService.exists(nameSpace)) {
+            RemoteAddress[] addresses = zookeeperService.getChildNodes(nameSpace);
+            for (RemoteAddress address: addresses) {
+                proxy.addServerAddress(address.getNodeName(), address.getUri());
+            }
         }
-        if (!StringUtils.isBlank(address) && uri.parseAddress(address)) {
-            proxy.addServerAddress(serverId, uri);
-        }
-        proxyService.start();
     }
 
     public static void registerProxy() {

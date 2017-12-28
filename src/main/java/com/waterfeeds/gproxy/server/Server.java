@@ -1,11 +1,13 @@
 package com.waterfeeds.gproxy.server;
 
+import com.waterfeeds.gproxy.message.Const;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.DefaultServerApiService;
 import com.waterfeeds.gproxy.protocol.base.GproxyJson;
 import com.waterfeeds.gproxy.server.base.Callback;
 import com.waterfeeds.gproxy.server.handler.ServerChannelInitializer;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
+import com.waterfeeds.gproxy.zookeeper.RemoteAddress;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
 import org.apache.zookeeper.CreateMode;
 
@@ -18,33 +20,42 @@ public class Server {
         this.callback.setServer(this);
     }
 
-    public void startServer(int port) {
+    public boolean startServer(int port) {
         DefaultServerApiService serverService = new DefaultServerApiService();
         serverService.setPort(port);
         BaseServer baseServer = new BaseServer(callback);
         this.baseServer = baseServer;
         ServerChannelInitializer serverInitializer = new ServerChannelInitializer(baseServer);
         serverService.setChannelInitializer(serverInitializer);
-        serverService.start();
+        return serverService.start();
     }
 
-    public void registerServer(String zkAddress, String zkSpace, String zkNodeName, String serverAddress) {
+    public void registerServer(String zkAddress, String space, String serverName, String serverAddress) {
         ZookeeperService zookeeperService = new ZookeeperService();
-        zookeeperService.setPath(zkSpace);
+        zookeeperService.setPath(space);
         zookeeperService.setZkAddress(zkAddress);
         zookeeperService.setCertificate(new Certificate());
-        URI uri = new URI();
-        uri.parseAddress(zkAddress);
-        serverAddress = "127.0.0.1:8081";
+        URI uri = new URI(zkAddress);
         byte[] bytes = serverAddress.getBytes();
         try {
             zookeeperService.afterPropertiesSet();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (!zookeeperService.exists(zkNodeName)) {
-            zookeeperService.registerNode(zkNodeName, uri, CreateMode.PERSISTENT, bytes, false);
-            System.out.println("register " + zookeeperService.exists(zkNodeName));
+        String spaceName = Const.ZOOKEEPER_NAMESPACE_SERVERS;
+        //zookeeperService.removeNode(spaceName, true);
+        if (!zookeeperService.exists(spaceName)) {
+            zookeeperService.registerNode(spaceName, uri, CreateMode.PERSISTENT, "servers".getBytes(), false);
+        }
+        serverName = spaceName + serverName;
+        if (!zookeeperService.exists(serverName)) {
+            zookeeperService.registerNode(serverName, uri, CreateMode.PERSISTENT, bytes, false);
+        }
+        if (zookeeperService.exists(spaceName)) {
+            RemoteAddress[] addresses = zookeeperService.getChildNodes(spaceName);
+            for (RemoteAddress address: addresses) {
+                //System.out.println(address.getNodeName());
+            }
         }
     }
 

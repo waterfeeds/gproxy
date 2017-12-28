@@ -10,7 +10,7 @@ import com.waterfeeds.gproxy.protocol.GproxyProtocol;
 
 import java.util.Scanner;
 
-public class ClientApplicationTwo {
+public class ClientApplication2 {
     public static void main(String[] args) {
         startClient();
     }

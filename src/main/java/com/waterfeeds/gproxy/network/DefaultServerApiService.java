@@ -70,7 +70,7 @@ public class DefaultServerApiService extends ServerApiService implements Initial
         b = new ServerBootstrap();
     }
 
-    public void start() {
+    public boolean start() {
         resource();
         b.group(bossGroup, workGroup)
                 .channel(NioServerSocketChannel.class)
@@ -88,11 +88,12 @@ public class DefaultServerApiService extends ServerApiService implements Initial
             sync = b.bind(port).sync();
             System.out.println(port + " 启动成功");
             log.info(this.getClass().getName() + "启动成功");
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             log.error(this.getClass().getName() + "启动失败", e);
+            return false;
         }
-
     }
 
     @Override

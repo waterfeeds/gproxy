@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Router {
+    static Random random = new Random();
     public ServerChannel randRoute(ConcurrentHashMap<String, ServerChannel> serverChannels) {
         int length = serverChannels.size();
         if (length == 0) {
@@ -33,7 +34,7 @@ public class Router {
         if (length == 0) {
             return;
         }
-        int randIndex = new Random().nextInt(length);
+        int randIndex = random.nextInt(length);
         Iterator iterator = serverChannels.entrySet().iterator();
         int index = 0;
         while (iterator.hasNext()) {
@@ -53,5 +54,6 @@ public class Router {
             map.put(clientId, serverChannel);
         }
     }
+
 
 }
