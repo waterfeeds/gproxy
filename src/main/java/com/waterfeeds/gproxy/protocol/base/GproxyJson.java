@@ -20,6 +20,11 @@ public class GproxyJson {
         return (String) object.get(Const.GROUP_ID);
     }
 
+    public static String getServerId(String content) {
+        JSONObject object = JSONObject.parseObject(content);
+        return (String) object.get(Const.SERVER_NAME);
+    }
+
     public static String getMessage(String content) {
         JSONObject object = JSONObject.parseObject(content);
         return (String) object.get(Const.MESSAGE);

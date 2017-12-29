@@ -15,6 +15,7 @@ public class Const {
     public static String CLIENT_ID = "cid";
     public static String USER_ID = "uid";
     public static String GROUP_ID = "gid";
+    public static String SERVER_NAME = "srv";
     public static String MESSAGE = "msg";
 
     public static int ROUTER_RANDOM = 1;
