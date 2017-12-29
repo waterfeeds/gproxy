@@ -19,15 +19,16 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        String serverId = BaseChannelContext.getLongId(ctx);
+        /*String serverId = BaseChannelContext.getLongId(ctx);
         ServerChannel serverChannel = BaseChannelContext.getServerChannel(ctx);
-        proxy.addServerChannel(serverId, serverChannel);
+        proxy.addServerChannel(serverId, serverChannel);*/
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        String serverId = BaseChannelContext.getLongId(ctx);
-        proxy.removeServerChannel(serverId);
+        /*String serverId = BaseChannelContext.getLongId(ctx);
+        proxy.removeServerChannel(serverId);*/
+
     }
 
     @Override

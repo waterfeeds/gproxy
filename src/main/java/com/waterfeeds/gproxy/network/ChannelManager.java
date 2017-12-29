@@ -23,7 +23,7 @@ public class ChannelManager {
     }
 
     public boolean isAvailable() {
-        return available;
+        return getChannel().isActive();
     }
 
     public void setAvailable(boolean available) {

@@ -25,6 +25,12 @@ public class BaseChannelInitializer {
             }
 
             @Override
+            public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+                super.channelInactive(ctx);
+                System.out.println(ctx.channel().remoteAddress() + " disconnected");
+            }
+
+            @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
                 GproxyProtocol protocol = (GproxyProtocol) msg;
                 System.out.println(ctx.channel().remoteAddress() + " " + protocol.getBody().getContent());

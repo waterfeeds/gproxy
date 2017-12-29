@@ -1,5 +1,6 @@
 package com.waterfeeds.gproxy.proxy.router;
 
+import com.waterfeeds.gproxy.message.Const;
 import com.waterfeeds.gproxy.proxy.channel.ServerChannel;
 
 import java.util.HashMap;
@@ -9,7 +10,13 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Router {
-    static Random random = new Random();
+    private static Random random = new Random();
+    public static int ROUTER_MODE = Const.ROUTER_RANDOM;
+
+    public int getRouterMode() {
+        return ROUTER_MODE;
+    }
+
     public ServerChannel randRoute(ConcurrentHashMap<String, ServerChannel> serverChannels) {
         int length = serverChannels.size();
         if (length == 0) {

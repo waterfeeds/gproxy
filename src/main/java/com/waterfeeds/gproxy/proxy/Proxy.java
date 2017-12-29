@@ -64,30 +64,43 @@ public class Proxy extends AbstractProxy {
         tryConnectServers();
     }
 
-    public void addServerChannel(String serverId, ServerChannel serverChannel) {
-        serverChannels.put(serverId, serverChannel);
+    public void addServerChannel(String serverName, ServerChannel serverChannel) {
+        serverChannels.put(serverName, serverChannel);
     }
 
-    public void removeServerChannel(String serverId) {
-        serverChannels.remove(serverId);
-    }
-
-    public void addServerAddress(String serverName, URI uri) {
-        System.out.println(serverName);
-        serverAddresses.put(serverName, uri);
-        boolean status = tryConnectServer(uri);
-        if (!status) {
-            serverAddresses.remove(serverName);
+    public void removeServerChannel(String serverName) {
+        if (serverChannels.containsKey(serverName)) {
+            serverChannels.remove(serverName);
         }
     }
 
-    public void removeServerAddress(String serverName, URI uri) {
-        serverAddresses.remove(serverName);
+    public void addServerAddress(String serverName, URI uri) {
+        serverAddresses.put(serverName, uri);
+        boolean status = tryConnectServer(serverName, uri);
+        if (!status) {
+            removeServerAddress(serverName);
+        }
+    }
+
+    public void removeServerAddress(String serverName) {
+        if (serverAddresses.containsKey(serverName)) {
+            serverAddresses.remove(serverName);
+        }
         removeServerChannel(serverName);
     }
 
+    public void addRouterMap(String clientId, ServerChannel serverChannel) {
+        routerChannelMap.put(clientId, serverChannel);
+    }
+
+    public void removeRouterMap(String clientId) {
+        if (routerChannelMap.containsKey(clientId)) {
+            routerChannelMap.remove(clientId);
+        }
+    }
+
     public void initServerChannels() {
-        clientApiService = DefaultClientApiService.newInstance(1);
+        clientApiService = DefaultClientApiService.newInstance(2);
         serverAddresses = new ConcurrentHashMap<String, URI>();
         serverChannels = new ConcurrentHashMap<String, ServerChannel>();
         routerChannelMap = new HashMap<String, ServerChannel>();
@@ -116,9 +129,9 @@ public class Proxy extends AbstractProxy {
         return null;
     }
 
-    public ServerChannel getRouteChannel(String clientId, String serverId) {
+    public ServerChannel getRouteChannel(String clientId, String serverName) {
         if (!routerChannelMap.containsKey(clientId)) {
-            router.routeByServer(clientId, serverId, serverChannels, routerChannelMap);
+            router.routeByServer(clientId, serverName, serverChannels, routerChannelMap);
         }
         if (routerChannelMap.containsKey(clientId)) {
             return routerChannelMap.get(clientId);
@@ -132,9 +145,11 @@ public class Proxy extends AbstractProxy {
         }
     }
 
-    public boolean tryConnectServer(URI uri) {
+    public boolean tryConnectServer(String serverName, URI uri) {
         ChannelManager manager = clientApiService.doConnect(uri);
         if (manager != null && manager.isAvailable()) {
+            ServerChannel serverChannel = new ServerChannel(manager);
+            addServerChannel(serverName, serverChannel);
             return true;
         } else {
             return false;
@@ -145,12 +160,12 @@ public class Proxy extends AbstractProxy {
         Iterator iterator = serverAddresses.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
-            String serverId = (String) entry.getKey();
+            String serverName = (String) entry.getKey();
             URI uri = (URI) entry.getValue();
-            if (serverChannels.containsKey(serverId)) {
+            if (serverChannels.containsKey(serverName)) {
                 continue;
             }
-            tryConnectServer(uri);
+            tryConnectServer(serverName, uri);
         }
     }
 }

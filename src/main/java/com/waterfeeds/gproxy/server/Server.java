@@ -45,14 +45,12 @@ public class Server {
         String nameSpace = Const.ZOOKEEPER_NAMESPACE_SERVERS;
         //zookeeperService.removeNode(nameSpace, true);
         if (!zookeeperService.exists(nameSpace)) {
-            zookeeperService.registerNode(nameSpace, uri, CreateMode.PERSISTENT, "servers".getBytes(), false);
-            System.out.println(zookeeperService.getData(nameSpace));
+            zookeeperService.registerNode(nameSpace, uri, CreateMode.PERSISTENT, Const.ZOOKEEPER_NAMESPACE_SERVERS.getBytes(), false);
         }
         serverName = nameSpace + serverName;
         if (!zookeeperService.exists(serverName)) {
             zookeeperService.registerNode(serverName, uri, CreateMode.EPHEMERAL, bytes, false);
         }
-
     }
 
     public void sendToAll(String message) {

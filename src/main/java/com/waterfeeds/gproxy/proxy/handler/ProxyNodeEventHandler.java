@@ -14,17 +14,24 @@ public class ProxyNodeEventHandler implements NodeEventHandler {
 
     @Override
     public void addNode(String serverName, URI uri) {
-        serverName = serverName.substring(Const.ZOOKEEPER_NAMESPACE_SERVERS.length() + 2);
+        serverName = parseServerName(serverName);
         proxy.addServerAddress(serverName, uri);
     }
 
     @Override
     public void removeNode(String serverName) {
-
+        serverName = parseServerName(serverName);
+        proxy.removeServerAddress(serverName);
     }
 
     @Override
     public void updateNode(String serverName, URI uri) {
+        serverName = parseServerName(serverName);
+        proxy.removeServerAddress(serverName);
+        proxy.addServerAddress(serverName, uri);
+    }
 
+    public String parseServerName(String serverName) {
+        return serverName.substring(Const.ZOOKEEPER_NAMESPACE_SERVERS.length() + 2);
     }
 }

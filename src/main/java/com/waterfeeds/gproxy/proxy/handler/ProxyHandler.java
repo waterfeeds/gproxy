@@ -49,6 +49,14 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
                 ServerChannel serverChannel = proxy.getRouteChannel(clientId);
                 if (serverChannel.isAvailable()) {
                     serverChannel.getChannel().writeAndFlush(protocol);
+                } else {
+                    proxy.removeRouterMap(clientId);
+                    if(proxy.getRouter().getRouterMode() == 1) {
+                        serverChannel = proxy.getRouteChannel(clientId);
+                        if (serverChannel.isAvailable()) {
+                            serverChannel.getChannel().writeAndFlush(protocol);
+                        }
+                    }
                 }
                 break;
             default:
