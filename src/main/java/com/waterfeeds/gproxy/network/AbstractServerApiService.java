@@ -8,10 +8,10 @@ import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class ServerApiService {
+public abstract class AbstractServerApiService {
     public static Cache<String, Integer> properties = new CacheFactory<String, Integer>();
-    protected static final Logger log = LoggerFactory.getLogger(ServerApiService.class.getSimpleName());
-    protected static final GproxyExecutor executor = new GproxyExecutor("gproxy-server");
+    protected static final Logger log = LoggerFactory.getLogger(AbstractServerApiService.class.getSimpleName());
+    protected static GproxyExecutor executor = new GproxyExecutor("gproxy-server");
 
     protected void invoke(Channel channel, Invocation invocation) {
         try {

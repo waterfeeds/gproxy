@@ -32,12 +32,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         GproxyProtocol protocol = (GproxyProtocol) msg;
-        if (!protocol.isSafe())
+        if (!protocol.isSafe()) {
             return;
+        }
         String proxyId = BaseChannelContext.getLongId(ctx);
         int cmd = protocol.getHeader().getCmd();
-        if (cmd != GproxyCommand.CLIENT_EVENT)
+        if (cmd != GproxyCommand.CLIENT_EVENT) {
             return;
+        }
         Callback callback = baseServer.getCallback();
         callback.setProxyId(proxyId);
         callback.onMessage(protocol);

@@ -66,6 +66,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         this.port = port;
     }
 
+    @Override
     public void registerNode(String path, URI uri, CreateMode mode, byte[] bytes, boolean is) {
         path = path.startsWith(DEV_S) ? path : DEV_S + path;
         try {
@@ -81,6 +82,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         }
     }
 
+    @Override
     public void removeNode(String path, boolean is) {
         path = path.startsWith("/") ? path : "/" + path;
         try {
@@ -94,15 +96,18 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         }
     }
 
+    @Override
     public boolean exists(String path) {
         path = path.startsWith("/") ? path : "/" + path;
         Stat forPath;
         try {
             forPath = curatorFramework.checkExists().forPath(path);
-            if (forPath == null)
+            if (forPath == null) {
                 return false;
-            else
+            }
+            else {
                 return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             log.error(this.getClass().getName() + "检查节点是否存在失败", e);
@@ -110,6 +115,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         return false;
     }
 
+    @Override
     public RemoteAddress[] getChildNodes(String path) {
         path = path.startsWith(DEV_S) ? path : DEV_S + path;
         try {
@@ -118,8 +124,8 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
             StringBuilder sb = new StringBuilder();
             int num = 0;
             for (String paths : forPath) {
-                String final_path = sb.append(path).append(DEV_S).append(paths).toString();
-                String data = this.getData(final_path);
+                String finalPath = sb.append(path).append(DEV_S).append(paths).toString();
+                String data = this.getData(finalPath);
                 URI uri = new URI();
                 if (data != null && uri.parseAddress(data)) {
                     RemoteAddress address = new RemoteAddress(paths, uri);
@@ -135,6 +141,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         return null;
     }
 
+    @Override
     public String getData(String path) {
         path = path.startsWith(DEV_S) ? path : DEV_S + path;
         if (exists(path)) {
@@ -260,6 +267,7 @@ public class ZookeeperService implements BaseZookeeperService, InitializingBean,
         curatorFramework.close();
     }
 
+    @Override
     public void destroy() throws Exception {
         this.closeServer();
     }

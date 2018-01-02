@@ -34,8 +34,9 @@ public class ForwardHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         GproxyProtocol protocol = (GproxyProtocol) msg;
-        if (!protocol.isSafe())
+        if (!protocol.isSafe()) {
             return;
+        }
         String content = protocol.getBody().getContent();
         String message = "";
         String clientId = "";

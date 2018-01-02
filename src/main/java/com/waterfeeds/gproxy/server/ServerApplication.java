@@ -8,7 +8,8 @@ public class ServerApplication {
         DefaultCallback callback = new DefaultCallback();
         Server server = new Server(callback);
         boolean status = server.startServer(Properties.SERVER_ONE_PORT);
-        if (status)
+        if (status) {
             server.registerServer(Properties.getZkAddress(), Properties.SPACE, Properties.SERVER_ONE_NAME, Properties.SERVER_ONE_ADDRESS);
+        }
     }
 }

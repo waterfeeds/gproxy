@@ -38,8 +38,9 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         GproxyProtocol protocol = (GproxyProtocol) msg;
-        if (!protocol.isSafe())
+        if (!protocol.isSafe()) {
             return;
+        }
         String clientId = BaseChannelContext.getLongId(ctx);
         GproxyHeader header = protocol.getHeader();
         GproxyBody body = protocol.getBody();
@@ -48,7 +49,8 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
         switch (cmd) {
             case GproxyCommand.CLIENT_EVENT:
                 int routerMode = proxy.getRouter().getRouterMode();
-                if (routerMode == Const.ROUTER_RANDOM) { //随机路由
+                if (routerMode == Const.ROUTER_RANDOM) {
+                    //随机路由
                     protocol = BaseEventConverter.converterByClientId(protocol, content, clientId);
                     ServerChannel serverChannel = proxy.getRandRouteChannel(clientId);
                     if (serverChannel.isAvailable()) {
@@ -60,7 +62,8 @@ public class ProxyHandler extends ChannelInboundHandlerAdapter {
                             serverChannel.getChannel().writeAndFlush(protocol);
                         }
                     }
-                } else if (routerMode == Const.ROUTER_ASSIGN) { //根据服务器分配路由
+                } else if (routerMode == Const.ROUTER_ASSIGN) {
+                    //根据服务器分配路由
                     protocol = BaseEventConverter.converterByClientId(protocol, content, clientId);
                     String serverName = GproxyJson.getServerId(content);
                     ServerChannel serverChannel = proxy.getRouteChannelByServer(clientId, serverName);

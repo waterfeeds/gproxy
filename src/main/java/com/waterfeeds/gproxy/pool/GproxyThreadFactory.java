@@ -16,6 +16,7 @@ public class GproxyThreadFactory implements ThreadFactory {
 
     AtomicInteger number = new AtomicInteger(0);
 
+    @Override
     public Thread newThread(Runnable runnable) {
         logger.info(this + ":create name:{}--{}线程成功", name, number.incrementAndGet());
         String newName = name + "-" + number.intValue();

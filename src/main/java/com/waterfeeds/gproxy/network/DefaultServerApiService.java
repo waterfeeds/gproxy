@@ -1,7 +1,6 @@
 package com.waterfeeds.gproxy.network;
 
 import com.alibaba.dubbo.rpc.Invocation;
-import com.waterfeeds.gproxy.proxy.Proxy;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
@@ -13,7 +12,7 @@ import org.springframework.beans.factory.InitializingBean;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DefaultServerApiService extends ServerApiService implements InitializingBean {
+public class DefaultServerApiService extends AbstractServerApiService implements InitializingBean {
     private ChannelInitializer<SocketChannel> channelInitializer;
     private DefaultEventLoopGroup serverLoopGroup;
     private NioEventLoopGroup bossGroup;

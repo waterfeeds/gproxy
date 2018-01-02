@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DefaultClientApiService extends ClientApiService {
+public class DefaultClientApiService extends AbstractClientApiService {
     private ScheduledExecutorService executorService;
     private DefaultEventLoopGroup defaultEventLoopGroup;
     private NioEventLoopGroup nioEventLoopGroup;
@@ -25,19 +25,20 @@ public class DefaultClientApiService extends ClientApiService {
     private ChannelInitializer<SocketChannel> channelInitializer;
     private static int threads;
 
-    static class staticInitBean {
+    static class StaticInitBean {
         public static DefaultClientApiService clientApiService = new DefaultClientApiService();
     }
 
     public static DefaultClientApiService newInstance(int threads) {
         DefaultClientApiService.threads = threads;
-        return staticInitBean.clientApiService;
+        return StaticInitBean.clientApiService;
     }
 
     private DefaultClientApiService() {
         resource();
         //start();
         executorService.scheduleWithFixedDelay(new Runnable() {
+            @Override
             public void run() {
                 cleanUpClients();
             }
@@ -85,6 +86,7 @@ public class DefaultClientApiService extends ClientApiService {
         this.defaultEventLoopGroup = new DefaultEventLoopGroup(threads, new ThreadFactory() {
             private AtomicInteger index = new AtomicInteger(0);
 
+            @Override
             public Thread newThread(Runnable r) {
                 return new Thread(r, "DEFAULTEVENTLOOPGROUP_" + index.incrementAndGet());
             }
@@ -93,6 +95,7 @@ public class DefaultClientApiService extends ClientApiService {
         this.nioEventLoopGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors() * 2, new ThreadFactory() {
             private AtomicInteger index = new AtomicInteger(0);
 
+            @Override
             public Thread newThread(Runnable r) {
                 return new Thread(r, "Client_" + index.incrementAndGet());
             }

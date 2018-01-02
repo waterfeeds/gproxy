@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class URI implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private transient long MINTIME = 3000L;
+    private transient long MIN_TIME = 3000L;
     private String serialMethod;
     private String host;
     private int port;
@@ -33,8 +33,8 @@ public class URI implements Serializable {
     }
 
     public void await(long time) throws InterruptedException {
-        time = time == 0 ? MINTIME : time;
-        countDownLatch.await(MINTIME, TimeUnit.MILLISECONDS);
+        time = time == 0 ? MIN_TIME : time;
+        countDownLatch.await(MIN_TIME, TimeUnit.MILLISECONDS);
     }
 
     public void countDown() throws InterruptedException {

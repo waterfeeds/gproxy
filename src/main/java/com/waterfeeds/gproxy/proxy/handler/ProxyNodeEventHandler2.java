@@ -17,24 +17,27 @@ public class ProxyNodeEventHandler2 implements NodeEventHandler {
 
     @Override
     public void addNode(String serverName, URI uri) {
-        if (!DefaultFilter.getFilter().filter(serverName))
+        if (!DefaultFilter.getFilter().filter(serverName)) {
             return;
+        }
         serverName = parseServerName(serverName);
         proxy.addServerAddress(serverName, uri);
     }
 
     @Override
     public void removeNode(String serverName) {
-        if (!DefaultFilter.getFilter().filter(serverName))
+        if (!DefaultFilter.getFilter().filter(serverName)) {
             return;
+        }
         serverName = parseServerName(serverName);
         proxy.removeServerAddress(serverName);
     }
 
     @Override
     public void updateNode(String serverName, URI uri) {
-        if (!DefaultFilter.getFilter().filter(serverName))
+        if (!DefaultFilter.getFilter().filter(serverName)) {
             return;
+        }
         serverName = parseServerName(serverName);
         proxy.removeServerAddress(serverName);
         proxy.addServerAddress(serverName, uri);

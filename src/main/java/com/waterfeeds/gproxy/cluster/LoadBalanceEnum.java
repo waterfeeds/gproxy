@@ -17,6 +17,8 @@ public enum LoadBalanceEnum {
             case "ip":
                 this.loadBalance = new IpRandomLoadBalance();
                 break;
+            default:
+                break;
         }
     }
 

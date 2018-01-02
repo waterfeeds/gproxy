@@ -86,8 +86,9 @@ public class ByteUtil {
     public static byte[] bit2Byte(Bit bit) {
         BitSet bits = bit.getBit();
         int len = bit.getLen();
-        if (len % 8 != 0)
+        if (len % 8 != 0) {
             return new byte[0];
+        }
         int bytesLen = len / 8;
         byte[] bytes = new byte[bytesLen];
         for (int i = 0; i < len; i = i + 8) {

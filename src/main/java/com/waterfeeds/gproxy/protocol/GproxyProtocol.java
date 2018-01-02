@@ -33,10 +33,12 @@ public class GproxyProtocol {
     }
 
     public int getLength() {
-        if (getHeader().getSafe() == 0)
+        if (getHeader().getSafe() == 0) {
             return header.getContentLen() + 4;
-        else
+        }
+        else {
             return header.getContentLen() + 20;
+        }
     }
 
     public boolean isSafe() {

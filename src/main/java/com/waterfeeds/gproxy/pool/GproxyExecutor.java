@@ -12,10 +12,12 @@ public class GproxyExecutor extends AbstractGproxyExecutor {
         super(name, corePoolSize, maxPoolSize, blockQueueSize);
     }
 
+    @Override
     public void execute(Runnable runnable) {
         service.execute(runnable);
     }
 
+    @Override
     public <T> Future<T> submit(Callable<T> runnable) {
         return (Future<T>) service.submit(runnable);
     }

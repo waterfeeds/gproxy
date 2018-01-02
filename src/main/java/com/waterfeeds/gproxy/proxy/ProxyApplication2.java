@@ -31,8 +31,9 @@ public class ProxyApplication2 {
         clientApiService.setChannelInitializer(forwardInitializer);
         proxy.setClientApiService(clientApiService);
         boolean status = proxyService.start();
-        if (!status)
+        if (!status) {
             return;
+        }
         ZookeeperService zookeeperService = new ZookeeperService();
         zookeeperService.setPath(space);
         zookeeperService.setZkAddress(zkAddress);

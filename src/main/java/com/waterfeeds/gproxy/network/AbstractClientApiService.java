@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class ClientApiService {
-    protected static final Logger log = LoggerFactory.getLogger(ClientApiService.class.getSimpleName());
+public abstract class AbstractClientApiService {
+    protected static final Logger log = LoggerFactory.getLogger(AbstractClientApiService.class.getSimpleName());
 
-    protected static final ConcurrentHashMap<String, ChannelManager> channels = new ConcurrentHashMap<String, ChannelManager>();
+    protected static ConcurrentHashMap<String, ChannelManager> channels = new ConcurrentHashMap<String, ChannelManager>();
 
     public static String getRemoteStr(URI uri) {
         if (uri != null) {
