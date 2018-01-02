@@ -5,6 +5,7 @@ import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.proxy.Proxy;
 import com.waterfeeds.gproxy.proxy.filter.Filter1;
 import com.waterfeeds.gproxy.proxy.filter.Filter2;
+import com.waterfeeds.gproxy.user.DefaultFilter;
 import com.waterfeeds.gproxy.zookeeper.base.NodeEventHandler;
 
 public class ProxyNodeEventHandler2 implements NodeEventHandler {
@@ -16,7 +17,7 @@ public class ProxyNodeEventHandler2 implements NodeEventHandler {
 
     @Override
     public void addNode(String serverName, URI uri) {
-        if (!Filter2.getFilter().filter(serverName))
+        if (!DefaultFilter.getFilter().filter(serverName))
             return;
         serverName = parseServerName(serverName);
         proxy.addServerAddress(serverName, uri);
@@ -24,7 +25,7 @@ public class ProxyNodeEventHandler2 implements NodeEventHandler {
 
     @Override
     public void removeNode(String serverName) {
-        if (!Filter2.getFilter().filter(serverName))
+        if (!DefaultFilter.getFilter().filter(serverName))
             return;
         serverName = parseServerName(serverName);
         proxy.removeServerAddress(serverName);
@@ -32,7 +33,7 @@ public class ProxyNodeEventHandler2 implements NodeEventHandler {
 
     @Override
     public void updateNode(String serverName, URI uri) {
-        if (!Filter2.getFilter().filter(serverName))
+        if (!DefaultFilter.getFilter().filter(serverName))
             return;
         serverName = parseServerName(serverName);
         proxy.removeServerAddress(serverName);

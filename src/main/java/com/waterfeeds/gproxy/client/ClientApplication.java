@@ -7,13 +7,13 @@ import com.waterfeeds.gproxy.protocol.GproxyBody;
 import com.waterfeeds.gproxy.protocol.base.GproxyCommand;
 import com.waterfeeds.gproxy.protocol.GproxyHeader;
 import com.waterfeeds.gproxy.protocol.GproxyProtocol;
+import com.waterfeeds.gproxy.user.Properties;
 
 import java.util.Scanner;
 
 public class ClientApplication {
     public static void main(String[] args) {
-        String proxyAddress = "127.0.0.1:8080";
-        startClient(proxyAddress);
+        startClient(Properties.PROXY_ONE_ADDRESS);
     }
 
     public static void startClient(String proxyAddress) {

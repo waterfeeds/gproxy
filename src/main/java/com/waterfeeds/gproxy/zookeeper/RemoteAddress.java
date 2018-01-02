@@ -13,6 +13,10 @@ public class RemoteAddress implements Serializable {
 
     }
 
+    public RemoteAddress(URI uri) {
+        this.uri = uri;
+    }
+
     public RemoteAddress(String nodeName, URI uri) {
         this.nodeName = nodeName;
         this.uri = uri;

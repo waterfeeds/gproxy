@@ -8,6 +8,7 @@ import com.waterfeeds.gproxy.proxy.handler.ForwardChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyNodeEventHandler;
 import com.waterfeeds.gproxy.proxy.handler.ProxyNodeEventHandler2;
+import com.waterfeeds.gproxy.user.Properties;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
 import com.waterfeeds.gproxy.zookeeper.RemoteAddress;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
@@ -16,10 +17,7 @@ import org.apache.zookeeper.CreateMode;
 
 public class ProxyApplication2 {
     public static void main(String[] args) {
-        int port = 8079;
-        String zkAddress = "127.0.0.1:2181";
-        String space = "gproxy";
-        startProxy(port, zkAddress, space);
+        startProxy(Properties.PROXY_TWO_PORT, Properties.getZkAddress(), Properties.SPACE);
     }
 
     public static void startProxy(int port, String zkAddress, String space) {

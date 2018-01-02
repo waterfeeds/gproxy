@@ -80,6 +80,10 @@ public class URI implements Serializable {
         return false;
     }
 
+    public String getAddress() {
+        return host + ":" + port;
+    }
+
     public String getSerialMethod() {
         return serialMethod;
     }
