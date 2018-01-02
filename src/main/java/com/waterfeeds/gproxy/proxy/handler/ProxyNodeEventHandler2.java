@@ -4,18 +4,19 @@ import com.waterfeeds.gproxy.message.Const;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.proxy.Proxy;
 import com.waterfeeds.gproxy.proxy.filter.Filter1;
+import com.waterfeeds.gproxy.proxy.filter.Filter2;
 import com.waterfeeds.gproxy.zookeeper.base.NodeEventHandler;
 
-public class ProxyNodeEventHandler implements NodeEventHandler {
+public class ProxyNodeEventHandler2 implements NodeEventHandler {
     private Proxy proxy;
 
-    public ProxyNodeEventHandler(Proxy proxy) {
+    public ProxyNodeEventHandler2(Proxy proxy) {
         this.proxy = proxy;
     }
 
     @Override
     public void addNode(String serverName, URI uri) {
-        if (!Filter1.getFilter().filter(serverName))
+        if (!Filter2.getFilter().filter(serverName))
             return;
         serverName = parseServerName(serverName);
         proxy.addServerAddress(serverName, uri);
@@ -23,7 +24,7 @@ public class ProxyNodeEventHandler implements NodeEventHandler {
 
     @Override
     public void removeNode(String serverName) {
-        if (!Filter1.getFilter().filter(serverName))
+        if (!Filter2.getFilter().filter(serverName))
             return;
         serverName = parseServerName(serverName);
         proxy.removeServerAddress(serverName);
@@ -31,7 +32,7 @@ public class ProxyNodeEventHandler implements NodeEventHandler {
 
     @Override
     public void updateNode(String serverName, URI uri) {
-        if (!Filter1.getFilter().filter(serverName))
+        if (!Filter2.getFilter().filter(serverName))
             return;
         serverName = parseServerName(serverName);
         proxy.removeServerAddress(serverName);

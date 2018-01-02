@@ -7,6 +7,7 @@ import com.waterfeeds.gproxy.network.DefaultServerApiService;
 import com.waterfeeds.gproxy.proxy.handler.ForwardChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyChannelInitializer;
 import com.waterfeeds.gproxy.proxy.handler.ProxyNodeEventHandler;
+import com.waterfeeds.gproxy.proxy.handler.ProxyNodeEventHandler2;
 import com.waterfeeds.gproxy.zookeeper.Certificate;
 import com.waterfeeds.gproxy.zookeeper.RemoteAddress;
 import com.waterfeeds.gproxy.zookeeper.ZookeeperService;
@@ -38,7 +39,7 @@ public class ProxyApplication2 {
         zookeeperService.setPath(space);
         zookeeperService.setZkAddress(zkAddress);
         zookeeperService.setCertificate(new Certificate());
-        NodeEventHandler eventHandler = new ProxyNodeEventHandler(proxy);
+        NodeEventHandler eventHandler = new ProxyNodeEventHandler2(proxy);
         try {
             zookeeperService.afterPropertiesSet(eventHandler);
         } catch (Exception e) {
