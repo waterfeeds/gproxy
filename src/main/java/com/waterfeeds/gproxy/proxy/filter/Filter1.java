@@ -3,17 +3,6 @@ package com.waterfeeds.gproxy.proxy.filter;
 import com.waterfeeds.gproxy.proxy.base.NodeEventFilter;
 
 public class Filter1 implements NodeEventFilter {
-    private Filter1() {
-
-    }
-
-    private static class ClassHolder {
-        private static Filter1 instance = new Filter1();
-    }
-
-    public static NodeEventFilter getFilter() {
-        return ClassHolder.instance;
-    }
 
     @Override
     public boolean filter(String serverName) {
