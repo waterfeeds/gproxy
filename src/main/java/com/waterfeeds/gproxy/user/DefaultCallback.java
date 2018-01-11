@@ -12,15 +12,15 @@ public class DefaultCallback extends Callback {
         AbstractContext context = new DefaultContext();
         GproxyBody body = protocol.getBody();
         String content = body.getContent();
-        String message = server.getMessageByBody(content);
-        String clientId = server.getClientIdByBody(content);
+        String message = getMessageByBody(content);
+        String clientId = getClientIdByBody(content);
         String groupId = context.generateGroupId();
         if (message.contains("join group")) {
-            server.joinGroup(clientId, groupId);
+            joinGroup(clientId, groupId);
         } else if (message.contains("leave group")) {
-            server.leaveGroup(clientId, groupId);
+            leaveGroup(clientId, groupId);
         } else {
-            server.sendToGroup(message, groupId);
+            sendToGroup(message, groupId);
         }
     }
 }
