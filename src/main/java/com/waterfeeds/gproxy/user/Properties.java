@@ -29,7 +29,8 @@ public class Properties {
     public final static String SERVER_THREE_NAME = "/server-03";
     public final static String SERVER_THREE_ADDRESS = "127.0.0.1:8083";
 
-    public final static List<String> zkAddresses = Arrays.asList("127.0.0.1:2181", "127.0.0.1:2182", "127.0.0.1:2183");
+    //public final static List<String> zkAddresses = Arrays.asList("127.0.0.1:2181", "127.0.0.1:2182", "127.0.0.1:2183");
+    public final static List<String> zkAddresses = Arrays.asList("127.0.0.1:2181");
 
     public static RemoteAddress[] parseAddress() {
         int length = zkAddresses.size();

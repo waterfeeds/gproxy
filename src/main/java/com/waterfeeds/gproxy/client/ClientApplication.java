@@ -1,5 +1,6 @@
 package com.waterfeeds.gproxy.client;
 
+import com.waterfeeds.gproxy.client.handler.ClientChannelInitializer;
 import com.waterfeeds.gproxy.message.URI;
 import com.waterfeeds.gproxy.network.ChannelManager;
 import com.waterfeeds.gproxy.network.DefaultClientApiService;

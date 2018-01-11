@@ -19,10 +19,8 @@ public class DefaultCallback extends Callback {
             server.joinGroup(clientId, groupId);
         } else if (message.contains("leave group")) {
             server.leaveGroup(clientId, groupId);
-        } else if (message.contains("group")) {
-            server.sendToGroup(message, groupId);
         } else {
-            server.sendToClient(message, clientId);
+            server.sendToGroup(message, groupId);
         }
     }
 }

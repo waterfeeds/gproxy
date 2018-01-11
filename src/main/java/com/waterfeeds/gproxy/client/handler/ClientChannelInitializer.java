@@ -1,4 +1,4 @@
-package com.waterfeeds.gproxy.client;
+package com.waterfeeds.gproxy.client.handler;
 
 import com.waterfeeds.gproxy.network.base.BaseChannelInitializer;
 import io.netty.channel.ChannelInitializer;
