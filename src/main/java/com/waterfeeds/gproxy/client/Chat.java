@@ -15,7 +15,6 @@ public class Chat {
     private JButton button;
     private ButtonListener buttonListener;
     private String user;
-    private String contextUser = "";
 
     public Chat() {
         buttonListener = new ButtonListener(this);
@@ -41,14 +40,6 @@ public class Chat {
         this.user = user;
     }
 
-    public String getContextUser() {
-        return contextUser;
-    }
-
-    public void setContextUser(String contextUser) {
-        this.contextUser = contextUser;
-    }
-
     public void showChatUI() {
         JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("聊天室");
@@ -59,7 +50,7 @@ public class Chat {
         placeComponents(panel);
         frame.setVisible(true);
         user = JOptionPane.showInputDialog(null, "用户名", "输入用户名", JOptionPane.INFORMATION_MESSAGE);
-        frame.setTitle(user);
+        frame.setTitle("聊天室(" + user + ")");
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 inputArea.requestFocus();

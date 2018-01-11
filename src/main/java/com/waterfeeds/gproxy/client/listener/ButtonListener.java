@@ -17,6 +17,7 @@ import java.util.Date;
 
 public class ButtonListener implements ActionListener {
     private Chat chat;
+    private String contextUser = "";
 
     public ButtonListener(Chat chat) {
         this.chat = chat;
@@ -51,9 +52,9 @@ public class ButtonListener implements ActionListener {
         StringBuilder showText = new StringBuilder(chat.getShowArea().getText());
         SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
         String dateTime = df.format(new Date());
-        if (!user.equals(chat.getContextUser())) {
+        if (!user.equals(contextUser)) {
             showText.append(user + " " + dateTime + "\r\n");
-            chat.setContextUser(user);
+            contextUser = user;
         }
         showText.append(message + "\r\n");
         chat.getShowArea().setText(showText.toString());
